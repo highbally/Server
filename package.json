@@ -1,0 +1,12 @@
+{
+  "type": "module",
+  "dependencies": {
+    "chokidar": "^3.5.3",
+    "dotenv": "^16.1.4",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.3.4",
+    "nunjucks": "^3.2.4"
+  }
+}
