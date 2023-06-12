@@ -17,7 +17,7 @@ router.post('/signup', async (req, res) => {
 			});
 		}
 
-		const userInfo = [null, body.id, body.pwd, body.nickName]; // 프론트 form 태그 내부 input의 name 속성과 같은 값
+		const userInfo = [null,body.nickName, body.pwd, body.id]; // 프론트 form 태그 내부 input의 name 속성과 같은 값
 		await conn.execute('INSERT INTO user_auth_info VALUES (?,?,?,?)', userInfo);
 		
 		console.log("회원 DB 저장 성공");
@@ -27,6 +27,7 @@ router.post('/signup', async (req, res) => {
 				issue : "암호화 시간이 조금 소요될 수 있으니 기다려주세요."
 			}
 		);
+
 	} catch (err) {
 		console.error(err);
 		return res.status(406).json(
@@ -42,15 +43,15 @@ router.post('/signin', async (req, res) => {
 	const body = req.body;
 
 	try {
-		const queryResult = await conn.execute('SELECT * FROM user_auth_info WHERE user_id = ?', [body.id]);
-    const userSelectResult = queryResult[0][0]
+		const [queryResult, ] = await conn.execute('SELECT * FROM user_auth_info WHERE user_id = ?', [body.id]);
+    const userSelectResult = queryResult[0]
     console.log(userSelectResult);
-		if (userSelectResult.user_pw === body.pwd) {
+		if (userSelectResult.password === body.pwd) {
 			const token = jwt.sign({
 				id: userSelectResult.user_id,
         nick_name : userSelectResult.nick_name
 			}, process.env.SECRET, {
-				issuer: '@hwany9181'
+				issuer: '@jihyeok'
 			});
 			
 			//await redisLocalCon.set(recordedUserInfo.id, token);

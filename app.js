@@ -2,9 +2,9 @@ import createError from 'http-errors'
 import express from 'express';
 import path, { dirname } from 'path';
 import { fileURLToPath } from  'url'
-// import cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 import logger from 'morgan';
-// import session from 'express-session';
+import session from 'express-session';
 import bodyParser from 'body-parser';
 import nunjucks from 'nunjucks';
 import dotenv from 'dotenv';
@@ -37,16 +37,16 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-// app.use(cookieParser()); // 요청 헤더에 포함된 쿠키를 해석한 뒤 해당 쿠키 정보를 req.cookies에 저장
-// app.use(session({
-//   secret: process.env.SECRET,
-//   resave: false,
-//   saveUninitialized: true,
-//   cookie: { 
-// 	  secret : process.env.SECRET,
-// 	  httpOnly : true
-//   }
-// }));
+app.use(cookieParser()); // 요청 헤더에 포함된 쿠키를 해석한 뒤 해당 쿠키 정보를 req.cookies에 저장
+app.use(session({
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { 
+	  secret : process.env.SECRET,
+	  httpOnly : true
+  }
+}));
 
 
 // 정적 파일 제공을 위한 미들웨어 등록(정적 파일 위치=__dirname+'public')
@@ -66,7 +66,8 @@ for await (const routeFile of routeFiles) {
   app.use(`/${routeFile.split('.')[0].replace('index','')}`, router.default);
 }
 
-    
+
+
 // 404 오류 생성
 app.use(function(req, res, next) {
   next(createError(404));
