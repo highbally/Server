@@ -125,7 +125,8 @@ router.post("/signup/check-id", async (req, res) => {
     });
   }
 });
-//회원가입 - ID 중복 확인
+
+//회원가입 - 닉네임 중복 확인
 router.post("/signup/check-nickname", async (req, res) => {
   const body = req.body;
   try {
@@ -156,9 +157,31 @@ router.post("/signup/check-nickname", async (req, res) => {
   }
 });
 
-//회원가입 - 회원 정보 입력
+/// 회원 정보 입력
 router.post("/signup/profile", async (req, res) => {
   const body = req.body;
+
+  // null이거나 빈 값 확인
+  const requiredFields = [
+    "usr_id",
+    "usr_pwd",
+    "name",
+    "nickname",
+    "phonenumber",
+    "gender",
+    "birth",
+  ];
+  const invalidFields = requiredFields.filter((field) => !body[field]);
+
+  if (invalidFields.length > 0) {
+    return res.status(400).json({
+      status: 400,
+      error: "Bad Request",
+      message: `유효하지 않은 회원 정보입니다. 다음 값들이 입력되지 않았습니다: ${invalidFields.join(
+        ", "
+      )}`,
+    });
+  }
 
   try {
     const user_profile = [
@@ -182,10 +205,10 @@ router.post("/signup/profile", async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    return res.status(400).json({
-      error: "Not Acceptable",
-      status: 400,
-      message: "올바르지 않은 회원 정보입니다.",
+    return res.status(500).json({
+      status: 500,
+      error: "Internal Server Error",
+      message: "Server Error",
     });
   }
 });
@@ -221,18 +244,18 @@ router.post("/signin", async (req, res) => {
         token,
       });
     } else {
-      return res.status(409).json({
-        status: 409,
-        error: "Conflict",
+      return res.status(401).json({
+        status: 401,
+        error: "Unauthorized",
         message: "비밀번호가 일치하지 않습니다.",
       });
     }
   } catch (err) {
     console.log(err);
-    return res.status(406).json({
-      statis: 406,
-      error: "Not Acceptable",
-      message: "회원 가입되지 않은 회원입니다.",
+    return res.status(500).json({
+      status: 500,
+      error: "Internal Server Error",
+      message: "서버 오류",
     });
   }
 });
@@ -256,7 +279,8 @@ router.post("/find-id", async (req, res) => {
       });
     } else {
       return res.status(404).json({
-        error: "Not Signup",
+        status: 404,
+        error: "Not Found",
         message: "회원가입된 유저가 없습니다.",
       });
     }
@@ -270,7 +294,7 @@ router.post("/find-id", async (req, res) => {
   }
 });
 
-//비밀번호 바꾸기
+//change password
 router.post("/change-pwd", async (req, res) => {
   const body = req.body;
   try {
@@ -279,16 +303,22 @@ router.post("/change-pwd", async (req, res) => {
       [body.usr_id]
     );
     console.log(userSelectResult);
-    if (userSelectResult !== 0) {
-      const existingPassword = userSelectResult[0].usr_pwd;
+    if (userSelectResult.length !== 0) {
+      // const existingPassword = userSelectResult[0].usr_pwd;
       await conn.execute(
         "UPDATE user_profile SET usr_pwd = ? WHERE usr_id = ?",
         [body.new_usr_pwd, body.usr_id]
       );
       return res.status(200).json({
         status: 200,
-        message: "비밀번호를 수정했습니다.",
-        issue: "비밀번호를 성공적으로 수정했습니다.",
+        message: "비밀번호를 변경했습니다.",
+        issue: "비밀번호를 성공적으로 변경했습니다.",
+      });
+    } else {
+      return res.status(404).json({
+        status: 404,
+        error: "Not Found",
+        message: "유저를 찾을 수 없습니다.",
       });
     }
   } catch (err) {
