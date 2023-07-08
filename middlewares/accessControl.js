@@ -4,7 +4,10 @@ const conn = sqlCon();
 
 const verifyToken = async (req, res, next) => {
   try {
-    req.decoded = jwt.verify(req.headers.authorization.replace(/^Bearer\s/, ""), process.env.SECRET);
+    req.decoded = jwt.verify(
+      req.headers.authorization.replace(/^Bearer\s/, ""),
+      process.env.SECRET
+    );
     if (req.decoded.allowResult) {
       return res.status(403).json({
         error: "403 Forbidden",
@@ -12,7 +15,10 @@ const verifyToken = async (req, res, next) => {
       });
     }
 
-    const queryResult = await conn.execute("SELECT * FROM user_auth_info WHERE id = ?", [req.decoded.id]);
+    const queryResult = await conn.execute(
+      "SELECT * FROM user_auth_info WHERE user_id = ?",
+      [req.decoded.id]
+    );
 
     const DBSearchResult = queryResult[0][0];
     if (DBSearchResult !== null) {

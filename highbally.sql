@@ -14,7 +14,8 @@ CREATE TABLE user_profile (
   gender VARCHAR(2),
   birth VARCHAR(10)
 );
-
+ALTER TABLE user_profile DROP COLUMN email;
+ALTER TABLE user_auth_info ADD phone_number VARCHAR(11);
 /*
 mysql.server start // 서버 켜기
 

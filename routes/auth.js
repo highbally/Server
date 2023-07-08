@@ -217,8 +217,8 @@ router.post("/find-id", async (req, res) => {
   const body = req.body;
   try {
     const [rows, fields] = await conn.execute(
-      "SELECT user_id FROM user_profile WHERE nickname = ? AND phone_number = ?",
-      [body.nick_name, body.phone_number]
+      "SELECT user_id FROM user_profile WHERE phone_number = ?",
+      [body.phone_number]
     );
 
     if (rows.length !== 0) {
