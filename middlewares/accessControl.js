@@ -16,7 +16,7 @@ const verifyToken = async (req, res, next) => {
     }
 
     const queryResult = await conn.execute(
-      "SELECT * FROM user_auth_info WHERE user_id = ?",
+      "SELECT * FROM user_profile WHERE usr_id = ?",
       [req.decoded.id]
     );
 

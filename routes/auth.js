@@ -100,16 +100,18 @@ router.post("/signup/check-id", async (req, res) => {
   const body = req.body;
   try {
     const [userSelectResult, fieldUser] = await conn.execute(
-      "SELECT * FROM user_auth_info WHERE user_id = ?",
-      [body.user_id]
+      "SELECT * FROM user_profile WHERE usr_id = ?",
+      [body.usr_id]
     );
     if (userSelectResult.length === 0) {
       return res.status(200).json({
+        status: 200,
         message: "중복ID가 없습니다.",
         issue: "해당ID로 진행할 수 있습니다.",
       });
     } else {
       return res.status(400).json({
+        status: 400,
         error: "Bad Request",
         message: "해당 ID는 이미 존재합니다",
       });
@@ -117,29 +119,39 @@ router.post("/signup/check-id", async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(500).json({
+      status: 500,
       error: "Internal Server Error",
       message: "중복 ID를 확인하는 동안 오류가 발생했습니다.",
     });
   }
 });
-
-//회원가입 - ID,PWD - 중복 아이디 확인 후 하는거라 무조건 pass
-router.post("/signup", async (req, res) => {
+//회원가입 - ID 중복 확인
+router.post("/signup/check-nickname", async (req, res) => {
   const body = req.body;
   try {
-    const userInfo = [body.user_id, body.pwd]; // 프론트 form 태그 내부 input의 name 속성과 같은 값
-    await conn.execute("INSERT INTO user_auth_info VALUES (?,?)", userInfo);
-
-    console.log("회원 DB 저장 성공");
-    return res.status(201).json({
-      message: "회원가입에 성공했습니다. 회원의 비밀번호는 암호화 처리됩니다.",
-      issue: "암호화 시간이 조금 소요될 수 있으니 기다려주세요.",
-    });
+    const [userSelectResult, fieldUser] = await conn.execute(
+      "SELECT * FROM user_profile WHERE nickname = ?",
+      [body.nickname]
+    );
+    if (userSelectResult.length === 0) {
+      return res.status(200).json({
+        status: 200,
+        message: "중복닉네임이 없습니다.",
+        issue: "해당 닉네임으로 진행할 수 있습니다.",
+      });
+    } else {
+      return res.status(400).json({
+        status: 400,
+        error: "Bad Request",
+        message: "해당 닉네임은 이미 존재합니다",
+      });
+    }
   } catch (err) {
     console.error(err);
-    return res.status(406).json({
-      error: "Not Acceptable",
-      message: "올바르지 않은 회원 정보입니다.",
+    return res.status(500).json({
+      status: 500,
+      error: "Internal Server Error",
+      message: "중복 닉네임을 확인하는 동안 오류가 발생했습니다.",
     });
   }
 });
@@ -149,22 +161,32 @@ router.post("/signup/profile", async (req, res) => {
   const body = req.body;
 
   try {
-    const userProfile = [
-      body.user_id,
-      body.nick_name,
-      body.phone_number,
+    const user_profile = [
+      body.usr_id,
+      body.usr_pwd,
+      body.name,
+      body.nickname,
+      body.phonenumber,
       body.gender,
       body.birth,
     ];
     await conn.execute(
-      "INSERT INTO user_profile VALUES (?,?,?,?,?)",
-      userProfile
+      "INSERT INTO user_profile (usr_id, usr_pwd, name, nickname, phonenumber, gender, birth) VALUES (?,?,?,?,?,?,?)",
+      user_profile
     );
 
-    return res.send("회원정보가 정상적으로 저장되었습니다.");
+    return res.status(201).json({
+      status: 201,
+      message: "회원가입에 성공했습니다.",
+      issue: "암호화 시간이 조금 소요될 수 있으니 기다려주세요.",
+    });
   } catch (err) {
-    console.log(err);
-    return res.send("회원정보 저장에 실패했습니다.");
+    console.error(err);
+    return res.status(400).json({
+      error: "Not Acceptable",
+      status: 400,
+      message: "올바르지 않은 회원 정보입니다.",
+    });
   }
 });
 
@@ -174,16 +196,16 @@ router.post("/signin", async (req, res) => {
 
   try {
     const [queryResult] = await conn.execute(
-      "SELECT * FROM user_auth_info WHERE user_id = ?",
-      [body.user_id]
+      "SELECT * FROM user_profile WHERE usr_id = ?",
+      [body.usr_id]
     );
     const userSelectResult = queryResult[0];
     console.log(userSelectResult);
-    if (userSelectResult.password === body.pwd) {
+    if (userSelectResult.usr_pwd === body.usr_pwd) {
       const token = jwt.sign(
         {
-          id: userSelectResult.user_id,
-          nick_name: userSelectResult.nick_name,
+          id: userSelectResult.usr_id,
+          nick_name: userSelectResult.nickname,
         },
         process.env.SECRET,
         {
@@ -193,12 +215,14 @@ router.post("/signin", async (req, res) => {
 
       //await redisLocalCon.set(recordedUserInfo.id, token);
       return res.status(200).json({
+        status: 200,
         message: "로그인 성공! 토큰은 DB에 저장되어 관리됩니다.",
         issue: "암호화 시간이 조금 소요될 수 있으니 기다려주세요.",
         token,
       });
     } else {
       return res.status(409).json({
+        status: 409,
         error: "Conflict",
         message: "비밀번호가 일치하지 않습니다.",
       });
@@ -206,6 +230,7 @@ router.post("/signin", async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(406).json({
+      statis: 406,
       error: "Not Acceptable",
       message: "회원 가입되지 않은 회원입니다.",
     });
@@ -217,16 +242,17 @@ router.post("/find-id", async (req, res) => {
   const body = req.body;
   try {
     const [rows, fields] = await conn.execute(
-      "SELECT user_id FROM user_profile WHERE phone_number = ?",
-      [body.phone_number]
+      "SELECT usr_id FROM user_profile WHERE phonenumber = ?",
+      [body.phonenumber]
     );
 
     if (rows.length !== 0) {
-      const userID = rows.map((row) => row.user_id);
+      const userID = rows.map((row) => row.usr_id);
       return res.status(200).json({
+        status: 200,
         message: "회원가입된 유저입니다.",
         issue: "일치하는 유저 아이디 입니다.",
-        user_id: userID,
+        usr_id: userID,
       });
     } else {
       return res.status(404).json({
@@ -237,6 +263,7 @@ router.post("/find-id", async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).json({
+      status: 500,
       error: "Internal Server Error",
       message: "서버 오류",
     });
@@ -248,17 +275,18 @@ router.post("/change-pwd", async (req, res) => {
   const body = req.body;
   try {
     const [userSelectResult, fields] = await conn.execute(
-      "SELECT * FROM user_auth_info WHERE user_id = ?",
-      [body.user_id]
+      "SELECT * FROM user_profile WHERE usr_id = ?",
+      [body.usr_id]
     );
     console.log(userSelectResult);
     if (userSelectResult !== 0) {
-      const existingPassword = userSelectResult[0].password;
+      const existingPassword = userSelectResult[0].usr_pwd;
       await conn.execute(
-        "UPDATE user_auth_info SET password = ? WHERE user_id = ?",
-        [body.newPwd, body.user_id]
+        "UPDATE user_profile SET usr_pwd = ? WHERE usr_id = ?",
+        [body.new_usr_pwd, body.usr_id]
       );
       return res.status(200).json({
+        status: 200,
         message: "비밀번호를 수정했습니다.",
         issue: "비밀번호를 성공적으로 수정했습니다.",
       });
@@ -266,6 +294,7 @@ router.post("/change-pwd", async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).json({
+      status: 500,
       error: "Internal Server Error",
       message: "서버 오류",
     });
