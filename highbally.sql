@@ -28,6 +28,10 @@ CREATE TABLE user_profile (
   gender VARCHAR(2) NOT NULL,
   birth VARCHAR(8) NOT NULL
 ) default character set UTF8MB4 collate utf8mb4_general_ci;
+ALTER TABLE user_profile ADD COLUMN subscribed BOOLEAN NOT NULL DEFAULT false;
+ALTER TABLE user_profile ADD COLUMN refresh_token VARCHAR(255) NOT NULL;
+ALTER TABLE user_profile MODIFY COLUMN refresh_token VARCHAR(255);
+
 
 
 /*

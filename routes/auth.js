@@ -225,7 +225,7 @@ router.post("/signin", async (req, res) => {
     const userSelectResult = queryResult[0];
     console.log(userSelectResult);
     if (userSelectResult.usr_pwd === body.usr_pwd) {
-      const token = jwt.sign(
+      const acess_token = jwt.sign(
         {
           id: userSelectResult.usr_id,
           nick_name: userSelectResult.nickname,
@@ -233,25 +233,98 @@ router.post("/signin", async (req, res) => {
         process.env.SECRET,
         {
           issuer: "@juseung",
+          expiresIn: "1h",
         }
+      );
+
+      const refresh_token = jwt.sign(
+        {
+          id: userSelectResult.usr_id,
+          nick_name: userSelectResult.nickname,
+        },
+        process.env.REFRESH_SECRET,
+        {
+          issuer: "@juseung",
+          expiresIn: "7d",
+        }
+      );
+
+      // user_profile table에 refresh token 저장
+      await conn.execute(
+        "UPDATE user_profile SET refresh_token = ? WHERE usr_id = ?",
+        [refresh_token, userSelectResult.usr_id]
       );
 
       //await redisLocalCon.set(recordedUserInfo.id, token);
       return res.status(200).json({
         status: 200,
-        message: "로그인 성공! 토큰은 DB에 저장되어 관리됩니다.",
+        message: "로그인 성공! acess token과 refresh token이 발행됐습니다.",
         issue: "암호화 시간이 조금 소요될 수 있으니 기다려주세요.",
-        token,
+        acessToken,
+        refreshToken,
       });
     } else {
       return res.status(401).json({
         status: 401,
         error: "Unauthorized",
-        message: "비밀번호가 일치하지 않습니다.",
+        message: "회원 정보가 일치하지 않습니다.",
       });
     }
   } catch (err) {
     console.log(err);
+    return res.status(500).json({
+      status: 500,
+      error: "Internal Server Error",
+      message: "서버 오류",
+    });
+  }
+});
+
+// acessToken재발급
+router.post("/signin/renew-token", async (req, res) => {
+  const { refresh_token } = req.body;
+
+  try {
+    const decoded = jwt.verify(refresh_token, process.env.REFRESH_SECRET);
+
+    //단순히 문자열을 비교하는 것이 아님 . JWT생성할때 포함된 usr_id를 decode해서 db에 있는지 확인해봄.
+    const [userSelectResult] = await conn.execute(
+      "SELECT * FROM user_profile WHERE usr_id = ?",
+      [decoded.id]
+    );
+
+    // usr_id와 매칭된 row가 있으며 그 row에 저장된 refresh token과 값이 값다면
+    if (
+      userSelectResult.length > 0 &&
+      userSelectResult[0].refresh_token === refresh_token
+    ) {
+      // 새로운 jwt 발급
+      const accessToken = jwt.sign(
+        {
+          id: userSelectResult[0].usr_id,
+          nick_name: userSelectResult[0].nickname,
+        },
+        process.env.SECRET,
+        {
+          issuer: "@juseung",
+          expiresIn: "1h",
+        }
+      );
+
+      return res.status(200).json({
+        status: 200,
+        message: "acess token이 재발급됐습니다.",
+        accessToken,
+      });
+    } else {
+      return res.status(401).json({
+        status: 401,
+        error: "Unauthorized",
+        message: "유효하지 않은 refresh token입니다.",
+      });
+    }
+  } catch (err) {
+    console.error(err);
     return res.status(500).json({
       status: 500,
       error: "Internal Server Error",
