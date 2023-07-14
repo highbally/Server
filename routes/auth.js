@@ -260,8 +260,8 @@ router.post("/signin", async (req, res) => {
         status: 200,
         message: "로그인 성공! acess token과 refresh token이 발행됐습니다.",
         issue: "암호화 시간이 조금 소요될 수 있으니 기다려주세요.",
-        acessToken,
-        refreshToken,
+        acess_token,
+        refresh_token,
       });
     } else {
       return res.status(401).json({
