@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import sqlCon from "../db/sqlCon.js";
 const conn = sqlCon();
-
+//JWT Token 검증
 const verifyToken = async (req, res, next) => {
   try {
     req.decoded = jwt.verify(
@@ -9,9 +9,9 @@ const verifyToken = async (req, res, next) => {
       process.env.SECRET
     );
     if (req.decoded.allowResult) {
-      return res.status(403).json({
-        error: "403 Forbidden",
-        message: "Authorization 토큰이 아닙니다.",
+      return res.status(401).json({
+        error: "Invalid Token",
+        message: "엑세스 토큰이 유효하지 않습니다.",
       });
     }
 

@@ -1,4 +1,6 @@
 DROP DATABASE IF EXISTS highbally;
+
+//디비 생성 & 테이블 생성
 CREATE DATABASE highbally DEFAULT CHARACTER SET UTF8MB4 COLLATE utf8mb4_general_ci;
 use highbally;
 CREATE TABLE user_profile (
@@ -84,6 +86,7 @@ CREATE TABLE markers (
   FOREIGN KEY (restaurant_id) REFERENCES restaurant_info(restaurant_id)
 ) DEFAULT CHARACTER SET UTF8MB4 COLLATE utf8mb4_general_ci;
 
+//TEST용 예시
 INSERT INTO restaurant_info (name, opening, closing, holiday, picture, number)
 VALUES
   ('미라쥬 펍', '17:00:00', '02:00:00', '일', 'image_a.jpg', '123-456-7890'),
@@ -96,8 +99,6 @@ VALUES
   (3, 37.1234, 127.5678, "서울 노원구 하계동"),
   (4, 38.9876, 126.5432, "서울 노원구 공릉동 철길"),
   (5, 39.8765, 128.4321, "서울 노원구 공릉동 철길");
-
-
 
 INSERT INTO highball_info (restaurant_id, name, price, picture, description, representation)
 VALUES
@@ -123,4 +124,3 @@ VALUES
 (5, "menu_list3.jpg"),
 (5, "menu_list4.jpg"),
 (5, "menu_list5.jpg");
-

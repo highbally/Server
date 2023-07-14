@@ -310,26 +310,27 @@ router.post("/signin/renew-token", async (req, res) => {
           expiresIn: "1h",
         }
       );
-
       return res.status(200).json({
         status: 200,
         message: "acess token이 재발급됐습니다.",
         accessToken,
       });
-    } else {
-      return res.status(401).json({
-        status: 401,
-        error: "Unauthorized",
-        message: "유효하지 않은 refresh token입니다.",
-      });
     }
   } catch (err) {
-    console.error(err);
-    return res.status(500).json({
-      status: 500,
-      error: "Internal Server Error",
-      message: "서버 오류",
-    });
+    if (err.name === "JsonWebTokenError") {
+      return res.status(401).json({
+        status: 401,
+        error: "JsonWebTokenError",
+        message: "유효하지 않은 refresh token입니다.",
+      });
+    } else {
+      console.error(err);
+      return res.status(500).json({
+        status: 500,
+        error: "Internal Server Error",
+        message: "서버 오류",
+      });
+    }
   }
 });
 

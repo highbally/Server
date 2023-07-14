@@ -4,7 +4,7 @@ import verifyToken from "../middlewares/accessControl.js";
 const conn = sqlCon();
 const router = express.Router();
 
-/* GET users listing. */
+/* 특정 유저가 로그인 했을 시 생기는 토큰으로 유저 정보 출력(토큰 검증) */
 router.get("/", verifyToken, async (req, res, next) => {
   try {
     const queryResult = await conn.execute(
@@ -13,13 +13,13 @@ router.get("/", verifyToken, async (req, res, next) => {
     );
     console.log(queryResult[0]);
     return res.status(200).json({
-      qR: queryResult[0],
+      specific_user_info: queryResult[0],
     });
   } catch (err) {
     console.log(err);
     return res.status(406).json({
-      error: "Not Acceptable",
-      message: "올바르지 않은 회원 정보입니다.",
+      error: "invalid token",
+      message: "엑세스 토큰이 올바르지 않습니다.",
     });
   }
 });
