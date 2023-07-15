@@ -124,3 +124,20 @@ VALUES
 (5, "menu_list3.jpg"),
 (5, "menu_list4.jpg"),
 (5, "menu_list5.jpg");
+
+ALTER TABLE restaurant_info ADD code VARCHAR(20);
+UPDATE restaurant_info SET code = '1234' WHERE restaurant_id = 4;
+UPDATE restaurant_info SET code = '5678' WHERE restaurant_id = 5;
+
+DROP TABLE usage_history;
+
+CREATE TABLE usage_history (
+  usage_id INT AUTO_INCREMENT PRIMARY KEY,
+  usr_id VARCHAR(32) NOT NULL,
+  restaurant_name VARCHAR(255) NOT NULL,
+  highball_name VARCHAR(255) NOT NULL,
+  time DATETIME NOT NULL
+) DEFAULT CHARACTER SET UTF8MB4 COLLATE utf8mb4_general_ci;
+
+
+ALTER TABLE user_profile ADD COLUMN availability BOOLEAN NOT NULL DEFAULT true;
