@@ -141,3 +141,18 @@ CREATE TABLE usage_history (
 
 
 ALTER TABLE user_profile ADD COLUMN availability BOOLEAN NOT NULL DEFAULT true;
+
+
+
+use highbally;
+ALTER TABLE user_profile ADD picture VARCHAR(255);
+UPDATE user_profile SET picture = 'juseungimage1.jpg' WHERE id = 1;
+
+
+CREATE TABLE blacklist (
+  token_id INT AUTO_INCREMENT PRIMARY KEY,
+  access_token VARCHAR(255) NOT NULL
+) DEFAULT CHARACTER SET UTF8MB4 COLLATE utf8mb4_general_ci;
+
+
+ALTER TABLE blacklist ADD created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
