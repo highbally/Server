@@ -5,7 +5,7 @@ const conn = sqlCon();
 const router = express.Router();
 
 //메인화면의 지도에서 지도API의 마커들의 위도와 경도
-router.get("/markers", verifyToken, async (req, res, next) => {
+router.get("/markers", async (req, res, next) => {
   try {
     const queryResult = await conn.execute(
       "SELECT restaurant_id, latitude, longitude FROM markers"
@@ -26,20 +26,18 @@ router.get("/markers", verifyToken, async (req, res, next) => {
 });
 
 //지도에서 특정 마커를 눌렀을 때
-router.get("/marker", verifyToken, async (req, res, next) => {
+router.get("/marker", async (req, res, next) => {
   try {
     //?key=value와 같이 쿼리로 request보낸거.
     const { restaurantId } = req.query;
 
-    // Retrieve the restaurant information from restaurant_info table
     const restaurantQueryResult = await conn.execute(
       "SELECT restaurant_id, name, opening, closing, picture, number FROM restaurant_info WHERE restaurant_id = ?",
       [restaurantId]
     );
 
-    // Retrieve the highball names from highball_info table
     const highballQueryResult = await conn.execute(
-      "SELECT name FROM highball_info WHERE restaurant_id = ? AND representation = 1",
+      "SELECT name FROM highball_info WHERE restaurant_id = ? AND available = 1",
       [restaurantId]
     );
 
@@ -52,7 +50,7 @@ router.get("/marker", verifyToken, async (req, res, next) => {
       status: 200,
       message: "Marker details",
       restaurant: restaurantQueryResult[0][0],
-      highballNames:
+      Available_HighballNames:
         highballNames.length > 0
           ? highballNames
           : ["대표 하이볼이 지정되지 않았습니다."],
@@ -68,11 +66,11 @@ router.get("/marker", verifyToken, async (req, res, next) => {
 });
 
 //메인화면의 리스트에서 업체 간략 정보들의 리스트
-router.get("/list", verifyToken, async (req, res, next) => {
+router.get("/list", async (req, res, next) => {
   try {
     const queryResult = await conn.execute(`
-    SELECT ri.restaurant_id, ri.name, ri.opening, ri.closing, ri.picture, ri.number, GROUP_CONCAT(hi.name) AS representative_menus 
-    FROM restaurant_info ri LEFT JOIN highball_info hi ON ri.restaurant_id = hi.restaurant_id AND hi.representation = 1 
+    SELECT ri.restaurant_id, ri.name, ri.opening, ri.closing, ri.picture, ri.number, GROUP_CONCAT(hi.name) AS available_highball 
+    FROM restaurant_info ri LEFT JOIN highball_info hi ON ri.restaurant_id = hi.restaurant_id AND hi.available = 1 
     WHERE ri.restaurant_id >= 1 GROUP BY ri.restaurant_id
       `);
 
@@ -92,7 +90,7 @@ router.get("/list", verifyToken, async (req, res, next) => {
 });
 
 //마커를 눌렀을 때 뜨는 가게 간략 정보나 리스트에서 특정 가게를 눌렀을 때 가게 상세 페이지를 위한 정보
-router.get("/detail", verifyToken, async (req, res, next) => {
+router.get("/detail", async (req, res, next) => {
   const { restaurantId } = req.query;
   try {
     const restaurantQueryResult = await conn.execute(

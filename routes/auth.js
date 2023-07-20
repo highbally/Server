@@ -1,6 +1,7 @@
 import express from "express";
 import sqlCon from "../db/sqlCon.js";
 import jwt from "jsonwebtoken";
+import moment from "moment";
 const conn = sqlCon();
 const router = express.Router();
 
@@ -157,11 +158,11 @@ router.post("/signup/check-nickname", async (req, res) => {
   }
 });
 
-/// 회원 정보 입력
+// 회원 정보 입력
 router.post("/signup/profile", async (req, res) => {
   const body = req.body;
 
-  // null이거나 빈 값 확인
+  //null 체크 먼저
   const requiredFields = [
     "usr_id",
     "usr_pwd",
@@ -191,7 +192,7 @@ router.post("/signup/profile", async (req, res) => {
       body.nickname,
       body.phonenumber,
       body.gender,
-      body.birth,
+      moment.utc(body.birth, "YYYYMMDD", "Asia/Seoul").format("YYYY-MM-DD"),
     ];
     await conn.execute(
       "INSERT INTO user_profile (usr_id, usr_pwd, name, nickname, phonenumber, gender, birth) VALUES (?,?,?,?,?,?,?)",

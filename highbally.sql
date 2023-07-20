@@ -45,7 +45,7 @@ CREATE TABLE highball_info (
   price INT NOT NULL,
   picture VARCHAR(255),
   description VARCHAR(255),
-  representation BOOLEAN NOT NULL DEFAULT false,
+  available BOOLEAN NOT NULL DEFAULT false,
   FOREIGN KEY (restaurant_id) REFERENCES restaurant_info(restaurant_id)
 ) DEFAULT CHARACTER SET UTF8MB4 COLLATE utf8mb4_general_ci;
 
@@ -68,11 +68,11 @@ CREATE TABLE review (
 
 CREATE TABLE usage_history (
   usage_id INT AUTO_INCREMENT PRIMARY KEY,
-  usr_id VARCHAR(32) NOT NULL,
+  id INT NOT NULL,
   restaurant_id INT NOT NULL,
   highball_id INT NOT NULL,
   time DATETIME NOT NULL,
-  FOREIGN KEY (usr_id) REFERENCES user_profile(usr_id),
+  FOREIGN KEY (id) REFERENCES user_profile(id),
   FOREIGN KEY (restaurant_id) REFERENCES restaurant_info(restaurant_id),
   FOREIGN KEY (highball_id) REFERENCES highball_info(highball_id)
 ) DEFAULT CHARACTER SET UTF8MB4 COLLATE utf8mb4_general_ci;
@@ -156,3 +156,4 @@ CREATE TABLE blacklist (
 
 
 ALTER TABLE blacklist ADD created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
