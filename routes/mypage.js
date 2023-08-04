@@ -16,15 +16,16 @@ router.get("/", verifyToken, async (req, res, next) => {
     return res.status(200).json({
       status: 200,
       message: "마이페이지 유저 닉네임과 구독여부 입니다.",
-      nickname: usrInfo[0].nickname,
-      subscribed: usrInfo[0].subscribed,
+      data: {
+        nickname: usrInfo[0].nickname,
+        subscribed: usrInfo[0].subscribed,
+      },
     });
   } catch (err) {
-    console.log(err);
     return res.status(500).json({
       status: 500,
-      error: "Internal Server Error",
       message: "요청을 처리하는 중에 애러가 발생했습니다.",
+      data: [],
     });
   }
 });
@@ -42,47 +43,45 @@ router.post("/check-nickname", verifyToken, async (req, res) => {
       return res.status(200).json({
         status: 200,
         message: "중복닉네임이 없습니다.",
-        issue: "해당 닉네임으로 진행할 수 있습니다.",
+        data: [],
       });
     } else {
       return res.status(400).json({
         status: 400,
-        error: "Bad Request",
         message: "해당 닉네임은 이미 존재합니다",
+        data: [],
       });
     }
   } catch (err) {
-    console.error(err);
     return res.status(500).json({
       status: 500,
-      error: "Internal Server Error",
-      message: "중복 닉네임을 확인하는 동안 오류가 발생했습니다.",
-    });
-  }
-});
-
-//프로필 수정 - 사진과 닉네임(근데 로컬에 있는 사진은 경로만 들고와서는 안될텐데)
-router.post("/update", verifyToken, async (req, res, next) => {
-  const body = req.body;
-  try {
-    await conn.execute(
-      "UPDATE user_profile SET picture = ? , nickname = ? WHERE usr_id =?",
-      [body.picture, body.nickname, req.decoded.id]
-    );
-
-    return res.status(200).json({
-      status: 200,
-      message: "회원 정보를 정상적으로 수정했습니다.",
-    });
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json({
-      status: 500,
-      error: "Internal Server Error",
       message: "요청을 처리하는 중에 애러가 발생했습니다.",
+      data: [],
     });
   }
 });
+
+// //프로필 수정 - 사진과 닉네임(근데 로컬에 있는 사진은 경로만 들고와서는 안될텐데)
+// router.post("/update", verifyToken, async (req, res, next) => {
+//   const body = req.body;
+//   try {
+//     await conn.execute(
+//       "UPDATE user_profile SET picture = ? , nickname = ? WHERE usr_id =?",
+//       [body.picture, body.nickname, req.decoded.id]
+//     );
+
+//     return res.status(200).json({
+//       status: 200,
+//       message: "회원 정보를 정상적으로 수정했습니다.",
+//     });
+//   } catch (err) {
+//     return res.status(500).json({
+//       status: 500,
+//       message: "요청을 처리하는 중에 애러가 발생했습니다.",
+//       data: [],
+//     });
+//   }
+// });
 
 //마이페이지 - 계정관리 - 비밀 번호 변경
 router.post("/account/change-pwd", verifyToken, async (req, res, next) => {
@@ -102,20 +101,20 @@ router.post("/account/change-pwd", verifyToken, async (req, res, next) => {
       return res.status(200).json({
         status: 200,
         message: "회원 비밀번호를 정상적으로 수정했습니다.",
+        data: [],
       });
     } else {
       return res.status(404).json({
         status: 404,
-        error: "Not Found",
         message: "입력하신 비밀번호가 일치하지 않습니다.",
+        data: [],
       });
     }
   } catch (err) {
-    console.log(err);
     return res.status(500).json({
       status: 500,
-      error: "Internal Server Error",
       message: "요청을 처리하는 중에 애러가 발생했습니다.",
+      data: [],
     });
   }
 });
@@ -135,13 +134,13 @@ router.get("/account/signout", verifyToken, async (req, res, next) => {
     return res.status(200).json({
       status: 200,
       message: "정상적으로 로그아웃 하였습니다.",
+      data: [],
     });
   } catch (err) {
-    console.log(err);
     return res.status(500).json({
       status: 500,
-      error: "Internal Server Error",
       message: "요청을 처리하는 중에 애러가 발생했습니다.",
+      data: [],
     });
   }
 });
@@ -155,13 +154,13 @@ router.get("/account/withdraw", verifyToken, async (req, res, next) => {
     return res.status(200).json({
       status: 200,
       message: "정상적으로 계정을 탈퇴 하였습니다.",
+      data: [],
     });
   } catch (err) {
-    console.log(err);
     return res.status(500).json({
       status: 500,
-      error: "Internal Server Error",
       message: "요청을 처리하는 중에 애러가 발생했습니다.",
+      data: [],
     });
   }
 });

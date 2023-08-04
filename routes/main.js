@@ -13,14 +13,13 @@ router.get("/markers", async (req, res, next) => {
     return res.status(200).json({
       status: 200,
       message: "제휴 업체 id, 위도, 경도 입니다.",
-      markers: queryResult[0],
+      data: queryResult[0],
     });
   } catch (err) {
-    console.log(err);
     return res.status(500).json({
       status: 500,
-      error: "Internal Server Error",
       message: "요청을 처리하는 중에 애러가 발생했습니다.",
+      data: [],
     });
   }
 });
@@ -31,7 +30,7 @@ router.get("/marker", async (req, res, next) => {
     //?key=value와 같이 쿼리로 request보낸거.
     const { restaurantId } = req.query;
 
-    const restaurantQueryResult = await conn.execute(
+    const [[restaurantQueryResult]] = await conn.execute(
       "SELECT restaurant_id, name, opening, closing, picture, number FROM restaurant_info WHERE restaurant_id = ?",
       [restaurantId]
     );
@@ -40,27 +39,31 @@ router.get("/marker", async (req, res, next) => {
       "SELECT name FROM highball_info WHERE restaurant_id = ? AND available = 1",
       [restaurantId]
     );
-
+    console.log(highballQueryResult);
     //highballQueryResult[0]이게 쿼리 결과의 결과 행 array임.
     //(row) => row.name에서 name값을 추출하여 반환하는 화살표 함수이고 map()이 추출된 name의 값들을 묶어 새 배열로 반환했다.
     const highballNames = highballQueryResult[0].map((row) => row.name);
-    console.log(highballNames);
+
+    console.log(restaurantQueryResult);
+    //console.log(highballNames);
 
     return res.status(200).json({
       status: 200,
       message: "Marker details",
-      restaurant: restaurantQueryResult[0][0],
-      Available_HighballNames:
-        highballNames.length > 0
-          ? highballNames
-          : ["대표 하이볼이 지정되지 않았습니다."],
+      data: {
+        ...restaurantQueryResult,
+        available_highball:
+          highballNames.length > 0
+            ? highballNames
+            : ["서비스 이용 가능한 하이볼이 없습니다."],
+      },
     });
   } catch (err) {
     console.log(err);
     return res.status(500).json({
       status: 500,
-      error: "Internal Server Error",
       message: "요청을 처리하는 중에 애러가 발생했습니다.",
+      data: [],
     });
   }
 });
@@ -77,14 +80,14 @@ router.get("/list", async (req, res, next) => {
     return res.status(200).json({
       status: 200,
       message: "제휴 업체 리스트입니다",
-      restaurants: queryResult[0],
+      data: queryResult[0],
     });
   } catch (err) {
     console.log(err);
     return res.status(500).json({
       status: 500,
-      error: "Internal Server Error",
       message: "요청을 처리하는 중에 애러가 발생했습니다.",
+      data: [],
     });
   }
 });
@@ -111,20 +114,22 @@ router.get("/detail", async (req, res, next) => {
     );
     const menuList = menulistQueryResult[0].map((rows) => rows.menulist);
 
+    const responseData = {
+      restaurant: restaurantQueryResult[0][0],
+      menu: [...menuQueryResult[0], ...highballQueryResult[0]],
+      menulist: menuList,
+    };
+
     return res.status(200).json({
       status: 200,
-      message: "해당 업체 상세 정보입나다.",
-      restaurant: restaurantQueryResult[0][0],
-      menu: menuQueryResult[0],
-      highball: highballQueryResult[0],
-      menulist: menuList,
+      message: "해당 업체 상세 정보입니다.",
+      data: responseData,
     });
   } catch (err) {
-    console.log(err);
     return res.status(500).json({
-      statis: 500,
-      error: "Internal Server Error",
-      message: "요청을 처리하는 중에 애러가 발생했습니다.",
+      status: 500,
+      message: "요청을 처리하는 중에 에러가 발생했습니다.",
+      data: [],
     });
   }
 });

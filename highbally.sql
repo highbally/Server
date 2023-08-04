@@ -14,7 +14,10 @@ CREATE TABLE user_profile (
   birth DATE NOT NULL,
   subscribed BOOLEAN NOT NULL DEFAULT false,
   expired DATETIME,
-  refresh_token VARCHAR(255)
+  refresh_token VARCHAR(255),
+  picture VARCHAR(255),
+  available BOOLEAN NOT NULL DEFAULT false,
+  qr_activated BOOLEAN NOT NULL DEFAULT true
 ) DEFAULT CHARACTER SET UTF8MB4 COLLATE utf8mb4_general_ci;
 
 
@@ -25,7 +28,8 @@ CREATE TABLE restaurant_info (
   closing TIME NOT NULL,
   holiday VARCHAR(30),
   picture VARCHAR(255),
-  number VARCHAR(20)
+  number VARCHAR(20),
+  validation_code VARCHAR(10)
 ) DEFAULT CHARACTER SET UTF8MB4 COLLATE utf8mb4_general_ci;
 
 CREATE TABLE menu_info (
@@ -56,14 +60,14 @@ CREATE TABLE menu_list (
   FOREIGN KEY (restaurant_id) REFERENCES restaurant_info(restaurant_id)
 ) DEFAULT CHARACTER SET UTF8MB4 COLLATE utf8mb4_general_ci;
 
-CREATE TABLE review (
-  review_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  restaurant_id INT NOT NULL,
-  writer VARCHAR(10) NOT NULL,
-  rate DECIMAL(2,1) NOT NULL,
-  content TEXT NOT NULL,
-  FOREIGN KEY (restaurant_id) REFERENCES restaurant_info(restaurant_id)
-) DEFAULT CHARACTER SET UTF8MB4 COLLATE utf8mb4_general_ci;
+-- CREATE TABLE review (
+--   review_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+--   restaurant_id INT NOT NULL,
+--   writer VARCHAR(10) NOT NULL,
+--   rate DECIMAL(2,1) NOT NULL,
+--   content TEXT NOT NULL,
+--   FOREIGN KEY (restaurant_id) REFERENCES restaurant_info(restaurant_id)
+-- ) DEFAULT CHARACTER SET UTF8MB4 COLLATE utf8mb4_general_ci;
 
 
 CREATE TABLE usage_history (
@@ -84,6 +88,12 @@ CREATE TABLE markers (
   longitude DECIMAL(23,20) NOT NULL,
   address VARCHAR(255) NOT NULL,
   FOREIGN KEY (restaurant_id) REFERENCES restaurant_info(restaurant_id)
+) DEFAULT CHARACTER SET UTF8MB4 COLLATE utf8mb4_general_ci;
+
+
+CREATE TABLE blacklist (
+  token_id INT AUTO_INCREMENT PRIMARY KEY,
+  access_token VARCHAR(255) NOT NULL,
 ) DEFAULT CHARACTER SET UTF8MB4 COLLATE utf8mb4_general_ci;
 
 //TEST용 예시
@@ -149,10 +159,6 @@ ALTER TABLE user_profile ADD picture VARCHAR(255);
 UPDATE user_profile SET picture = 'juseungimage1.jpg' WHERE id = 1;
 
 
-CREATE TABLE blacklist (
-  token_id INT AUTO_INCREMENT PRIMARY KEY,
-  access_token VARCHAR(255) NOT NULL
-) DEFAULT CHARACTER SET UTF8MB4 COLLATE utf8mb4_general_ci;
 
 
 ALTER TABLE blacklist ADD created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP

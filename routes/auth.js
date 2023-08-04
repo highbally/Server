@@ -34,7 +34,7 @@ const signature = hash.toString(CryptoJS.enc.Base64);
 
 //본인 인증 - 인증번호 전송
 router.post("/signup/send", async (req, res) => {
-  const phoneNumber = req.body.phoneNumber;
+  const phoneNumber = req.body.phonenumber;
 
   Cache.del(phoneNumber);
 
@@ -66,15 +66,30 @@ router.post("/signup/send", async (req, res) => {
     },
   })
     .then(function (axiosRes) {
-      res.send(`${phoneNumber}로 인증번호 전송에 성공했습니다.`);
+      console.log(err);
+      res.status(200).json({
+        status: 200,
+        message: `${phoneNumber}로 인증번호 전송에 성공했습니다.`,
+        data: {},
+      });
     })
     .catch((err) => {
       if (err.res == undefined) {
         console.log(err);
-        res.send(`${phoneNumber}로 인증번호 전송에 성공했습니다.`);
+        console.log(err);
+        res.status(200).json({
+          status: 200,
+          message: `${phoneNumber}로 인증번호 전송에 성공했습니다.`,
+          data: {},
+        });
       } else {
         console.log(err);
-        res.send(`${phoneNumber}로 인증번호 전송에 실패했습니다.`);
+        console.log(err);
+        res.status(401).json({
+          status: 401,
+          message: `${phoneNumber}로 인증번호 전송에 실패했습니다.`,
+          data: {},
+        });
       }
     });
 });
@@ -87,12 +102,24 @@ router.post("/signup/verify", async (req, res) => {
   const CacheData = Cache.get(phoneNumber);
 
   if (!CacheData) {
-    return res.send("인증번호를 입력해주세요.");
+    return res.status(400).json({
+      status: 400,
+      message: "인증번호를 입력해주세요.",
+      data: {},
+    });
   } else if (CacheData !== verifyCode) {
-    return res.send("인증번호가 일치하지 않습니다.");
+    return res.status(400).json({
+      status: 400,
+      message: "인증번호가 일치하지 않습니다.",
+      data: {},
+    });
   } else {
     Cache.del(phoneNumber);
-    return res.send("인증에 성공했습니다.");
+    return res.status(200).json({
+      status: 200,
+      message: "인증에 성공했습니다.",
+      data: {},
+    });
   }
 });
 
@@ -108,21 +135,20 @@ router.post("/signup/check-id", async (req, res) => {
       return res.status(200).json({
         status: 200,
         message: "중복ID가 없습니다.",
-        issue: "해당ID로 진행할 수 있습니다.",
+        data: {},
       });
     } else {
       return res.status(400).json({
         status: 400,
-        error: "Bad Request",
         message: "해당 ID는 이미 존재합니다",
+        data: {},
       });
     }
   } catch (err) {
-    console.error(err);
     return res.status(500).json({
       status: 500,
-      error: "Internal Server Error",
-      message: "중복 ID를 확인하는 동안 오류가 발생했습니다.",
+      message: "요청을 처리하는 중에 에러가 발생했습니다.",
+      data: {},
     });
   }
 });
@@ -139,21 +165,20 @@ router.post("/signup/check-nickname", async (req, res) => {
       return res.status(200).json({
         status: 200,
         message: "중복닉네임이 없습니다.",
-        issue: "해당 닉네임으로 진행할 수 있습니다.",
+        data: {},
       });
     } else {
       return res.status(400).json({
         status: 400,
-        error: "Bad Request",
         message: "해당 닉네임은 이미 존재합니다",
+        data: {},
       });
     }
   } catch (err) {
-    console.error(err);
     return res.status(500).json({
       status: 500,
-      error: "Internal Server Error",
-      message: "중복 닉네임을 확인하는 동안 오류가 발생했습니다.",
+      message: "요청을 처리하는 중에 에러가 발생했습니다.",
+      data: {},
     });
   }
 });
@@ -177,10 +202,10 @@ router.post("/signup/profile", async (req, res) => {
   if (invalidFields.length > 0) {
     return res.status(400).json({
       status: 400,
-      error: "Bad Request",
       message: `유효하지 않은 회원 정보입니다. 다음 값들이 입력되지 않았습니다: ${invalidFields.join(
         ", "
       )}`,
+      data: {},
     });
   }
 
@@ -202,14 +227,14 @@ router.post("/signup/profile", async (req, res) => {
     return res.status(201).json({
       status: 201,
       message: "회원가입에 성공했습니다.",
-      issue: "암호화 시간이 조금 소요될 수 있으니 기다려주세요.",
+      data: {},
     });
   } catch (err) {
-    console.error(err);
+    console.log(err);
     return res.status(500).json({
       status: 500,
-      error: "Internal Server Error",
-      message: "Server Error",
+      message: "요청을 처리하는 중에 에러가 발생했습니다.",
+      data: {},
     });
   }
 });
@@ -226,7 +251,7 @@ router.post("/signin", async (req, res) => {
     const userSelectResult = queryResult[0];
     console.log(userSelectResult);
     if (userSelectResult.usr_pwd === body.usr_pwd) {
-      const acess_token = jwt.sign(
+      const access_token = jwt.sign(
         {
           id: userSelectResult.usr_id,
           nick_name: userSelectResult.nickname,
@@ -260,23 +285,23 @@ router.post("/signin", async (req, res) => {
       return res.status(200).json({
         status: 200,
         message: "로그인 성공! acess token과 refresh token이 발행됐습니다.",
-        issue: "암호화 시간이 조금 소요될 수 있으니 기다려주세요.",
-        acess_token,
-        refresh_token,
+        data: {
+          access_token: access_token,
+          refresh_token: refresh_token,
+        },
       });
     } else {
       return res.status(401).json({
         status: 401,
-        error: "Unauthorized",
         message: "회원 정보가 일치하지 않습니다.",
+        data: {},
       });
     }
   } catch (err) {
-    console.log(err);
     return res.status(500).json({
       status: 500,
-      error: "Internal Server Error",
-      message: "서버 오류",
+      message: "요청을 처리하는 중에 에러가 발생했습니다.",
+      data: {},
     });
   }
 });
@@ -314,22 +339,21 @@ router.post("/signin/renew-token", async (req, res) => {
       return res.status(200).json({
         status: 200,
         message: "acess token이 재발급됐습니다.",
-        accessToken,
+        data: { acess_token: accessToken },
       });
     }
   } catch (err) {
     if (err.name === "JsonWebTokenError") {
       return res.status(401).json({
         status: 401,
-        error: "JsonWebTokenError",
         message: "유효하지 않은 refresh token입니다.",
+        data: {},
       });
     } else {
-      console.error(err);
       return res.status(500).json({
         status: 500,
-        error: "Internal Server Error",
-        message: "서버 오류",
+        message: "요청을 처리하는 중에 에러가 발생했습니다.",
+        data: {},
       });
     }
   }
@@ -339,32 +363,29 @@ router.post("/signin/renew-token", async (req, res) => {
 router.post("/find-id", async (req, res) => {
   const body = req.body;
   try {
-    const [rows, fields] = await conn.execute(
+    const [[rows]] = await conn.execute(
       "SELECT usr_id FROM user_profile WHERE phonenumber = ?",
       [body.phonenumber]
     );
-
-    if (rows.length !== 0) {
-      const userID = rows.map((row) => row.usr_id);
+    //쿼리 돌렸을 때 일치하는거 없으면 undefined라 false. rows를 조건문에 넣은 것은 있는지 없는지
+    if (rows && rows.length !== 0) {
       return res.status(200).json({
         status: 200,
-        message: "회원가입된 유저입니다.",
-        issue: "일치하는 유저 아이디 입니다.",
-        usr_id: userID,
+        message: "해당 회원의 ID입니다.",
+        data: { usr_id: rows.usr_id },
       });
     } else {
       return res.status(404).json({
         status: 404,
-        error: "Not Found",
         message: "회원가입된 유저가 없습니다.",
+        data: {},
       });
     }
   } catch (err) {
-    console.log(err);
     return res.status(500).json({
       status: 500,
-      error: "Internal Server Error",
-      message: "서버 오류",
+      message: "요청을 처리하는 중에 에러가 발생했습니다.",
+      data: {},
     });
   }
 });
@@ -373,35 +394,42 @@ router.post("/find-id", async (req, res) => {
 router.post("/change-pwd", async (req, res) => {
   const body = req.body;
   try {
-    const [userSelectResult, fields] = await conn.execute(
-      "SELECT * FROM user_profile WHERE usr_id = ?",
+    const [userSelectResult] = await conn.execute(
+      "SELECT usr_pwd FROM user_profile WHERE usr_id = ?",
       [body.usr_id]
     );
     console.log(userSelectResult);
-    if (userSelectResult.length !== 0) {
-      // const existingPassword = userSelectResult[0].usr_pwd;
-      await conn.execute(
-        "UPDATE user_profile SET usr_pwd = ? WHERE usr_id = ?",
-        [body.new_usr_pwd, body.usr_id]
-      );
-      return res.status(200).json({
-        status: 200,
-        message: "비밀번호를 변경했습니다.",
-        issue: "비밀번호를 성공적으로 변경했습니다.",
-      });
-    } else {
+    if (!userSelectResult || userSelectResult.length === 0) {
       return res.status(404).json({
         status: 404,
-        error: "Not Found",
-        message: "유저를 찾을 수 없습니다.",
+        message: "일치하는 회원이 존재하지 않습니다.",
+        data: {},
       });
     }
+
+    if (userSelectResult[0].usr_pwd == body.new_usr_pwd) {
+      return res.status(400).json({
+        status: 400,
+        message: "기존 비밀번호와 동일한 비밀번호는 사용할 수 없습니다.",
+        data: {},
+      });
+    }
+
+    await conn.execute("UPDATE user_profile SET usr_pwd = ? WHERE usr_id = ?", [
+      body.new_usr_pwd,
+      body.usr_id,
+    ]);
+
+    return res.status(200).json({
+      status: 200,
+      message: "비밀번호를 성공적으로 변경했습니다.",
+      data: {},
+    });
   } catch (err) {
-    console.log(err);
     return res.status(500).json({
       status: 500,
-      error: "Internal Server Error",
-      message: "서버 오류",
+      message: "요청을 처리하는 중에 에러가 발생했습니다.",
+      data: {},
     });
   }
 });
