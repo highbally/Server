@@ -34,13 +34,13 @@ const signature = hash.toString(CryptoJS.enc.Base64);
 
 //본인 인증 - 인증번호 전송
 router.post("/signup/send", async (req, res) => {
-  const phoneNumber = req.body.phonenumber;
+  const phonenumber = req.body.phonenumber;
 
-  Cache.del(phoneNumber);
+  Cache.del(phonenumber);
 
   //인증번호 생성
   const verifyCode = Math.floor(Math.random() * (999999 - 100000)) + 100000;
-  Cache.put(phoneNumber, verifyCode.toString());
+  Cache.put(phonenumber, verifyCode.toString());
 
   axios({
     method: method,
@@ -60,7 +60,7 @@ router.post("/signup/send", async (req, res) => {
       content: `[하이볼리] 인증번호 [${verifyCode}]를 입력해주세요.`,
       messages: [
         {
-          to: `${phoneNumber}`,
+          to: `${phonenumber}`,
         },
       ],
     },
@@ -69,17 +69,15 @@ router.post("/signup/send", async (req, res) => {
       console.log(err);
       res.status(200).json({
         status: 200,
-        message: `${phoneNumber}로 인증번호 전송에 성공했습니다.`,
+        message: `${phonenumber}로 인증번호 전송에 성공했습니다.`,
         data: {},
       });
     })
     .catch((err) => {
       if (err.res == undefined) {
-        console.log(err);
-        console.log(err);
         res.status(200).json({
           status: 200,
-          message: `${phoneNumber}로 인증번호 전송에 성공했습니다.`,
+          message: `${phonenumber}로 인증번호 전송에 성공했습니다.`,
           data: {},
         });
       } else {
@@ -87,7 +85,7 @@ router.post("/signup/send", async (req, res) => {
         console.log(err);
         res.status(401).json({
           status: 401,
-          message: `${phoneNumber}로 인증번호 전송에 실패했습니다.`,
+          message: `${phonenumber}로 인증번호 전송에 실패했습니다.`,
           data: {},
         });
       }
@@ -96,10 +94,10 @@ router.post("/signup/send", async (req, res) => {
 
 //본인 인증 - 인증번호 확인
 router.post("/signup/verify", async (req, res) => {
-  const phoneNumber = req.body.phoneNumber;
+  const phonenumber = req.body.phonenumber;
   const verifyCode = req.body.verifyCode;
 
-  const CacheData = Cache.get(phoneNumber);
+  const CacheData = Cache.get(phonenumber);
 
   if (!CacheData) {
     return res.status(400).json({
@@ -114,7 +112,7 @@ router.post("/signup/verify", async (req, res) => {
       data: {},
     });
   } else {
-    Cache.del(phoneNumber);
+    Cache.del(phonenumber);
     return res.status(200).json({
       status: 200,
       message: "인증에 성공했습니다.",

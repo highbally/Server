@@ -10,6 +10,7 @@ router.get("/markers", async (req, res, next) => {
     const queryResult = await conn.execute(
       "SELECT restaurant_id, latitude, longitude FROM markers"
     );
+    console.log(queryResult);
     return res.status(200).json({
       status: 200,
       message: "제휴 업체 id, 위도, 경도 입니다.",
@@ -19,7 +20,7 @@ router.get("/markers", async (req, res, next) => {
     return res.status(500).json({
       status: 500,
       message: "요청을 처리하는 중에 애러가 발생했습니다.",
-      data: [],
+      data: {},
     });
   }
 });
@@ -63,7 +64,7 @@ router.get("/marker", async (req, res, next) => {
     return res.status(500).json({
       status: 500,
       message: "요청을 처리하는 중에 애러가 발생했습니다.",
-      data: [],
+      data: {},
     });
   }
 });
@@ -87,7 +88,7 @@ router.get("/list", async (req, res, next) => {
     return res.status(500).json({
       status: 500,
       message: "요청을 처리하는 중에 애러가 발생했습니다.",
-      data: [],
+      data: {},
     });
   }
 });
@@ -129,7 +130,7 @@ router.get("/detail", async (req, res, next) => {
     return res.status(500).json({
       status: 500,
       message: "요청을 처리하는 중에 에러가 발생했습니다.",
-      data: [],
+      data: {},
     });
   }
 });
