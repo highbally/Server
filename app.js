@@ -10,21 +10,24 @@ import nunjucks from "nunjucks";
 import dotenv from "dotenv";
 import fs from "fs";
 
+
 dotenv.config();
 
 const app = express();
+app.use(express.static('public'));
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // html을 뷰 엔진으로 설정 -> 동적인 웹 페이지 생성 가능, 템플릿 엔진 사용 가능
-app.set("view engine", "html");
+app.set("view engine", "ejs");
+// app.set("view engine", "html");
 
-// 템플릿 엔진을 nunjucks로 설정(views: 템플릿 파일 위치, watch: 템플릿 파일 변경시 자동 재렌더링)
-nunjucks.configure("views", {
-  express: app,
-  watch: true,
-});
+// // 템플릿 엔진을 nunjucks로 설정(views: 템플릿 파일 위치, watch: 템플릿 파일 변경시 자동 재렌더링)
+// nunjucks.configure("views", {
+//   express: app,
+//   watch: true,
+// });
 
 // app.use(): 모든 종류의 요청에 대해 실행할 미들웨어 등록, 등록된 순서대로 실행, app.use 실행 후 app.get 등 실행
 app.use(logger("dev")); // 콘솔에 로그 출력
@@ -51,6 +54,13 @@ app.use(
     },
   })
 );
+
+// 세션 생성: 데이터 관리용
+app.use(session({
+  resave : false,
+  saveUninitialized : false,
+  secret : process.env.SESSION_SECRET
+}));
 
 // 정적 파일 제공을 위한 미들웨어 등록(정적 파일 위치=__dirname+'public')
 // 정적 파일은 서버에서 동적으로 처리되지 않고 클라이언트 측에서 다운로드해 사용하는 파일
@@ -83,6 +93,7 @@ app.use(function (err, req, res, next) {
   res.render("error"); // error 템플릿 렌더링(위에서 지정한 views 디렉토리에 있음), err 객체를 템플릿으로 전달
   //   res.render('error', {err});
 });
+
 
 // app 객체 다른 파일에서 사용가능(import app from './app.js';)
 export default app;

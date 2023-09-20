@@ -8,23 +8,23 @@ const router = express.Router();
 //하단 바 마이페이지 눌렀을 때
 router.get("/", verifyToken, async (req, res, next) => {
   try {
-    const [usrInfo] = await conn.execute(
-      "SELECT nickname, subscribed FROM user_profile WHERE usr_id = ?",
+    const [queryResult] = await conn.execute(
+      "SELECT nickname, subscribed, available FROM user_profile WHERE usr_id = ?",
       [req.decoded.id]
     );
-
+    const usrInfo = queryResult[0]
     return res.status(200).json({
       status: 200,
       message: "마이페이지 유저 닉네임과 구독여부 입니다.",
-      nickname: usrInfo[0].nickname,
-      subscribed: usrInfo[0].subscribed,
+      data: [{nickname: usrInfo.nickname, subscribed: usrInfo.subscribed, available: usrInfo.available}]
+
     });
   } catch (err) {
     console.log(err);
     return res.status(500).json({
       status: 500,
-      error: "Internal Server Error",
       message: "요청을 처리하는 중에 애러가 발생했습니다.",
+      data: []
     });
   }
 });
@@ -102,20 +102,20 @@ router.post("/account/change-pwd", verifyToken, async (req, res, next) => {
       return res.status(200).json({
         status: 200,
         message: "회원 비밀번호를 정상적으로 수정했습니다.",
+        data: [],
       });
     } else {
       return res.status(404).json({
         status: 404,
-        error: "Not Found",
         message: "입력하신 비밀번호가 일치하지 않습니다.",
+        data: [],
       });
     }
   } catch (err) {
-    console.log(err);
     return res.status(500).json({
       status: 500,
-      error: "Internal Server Error",
       message: "요청을 처리하는 중에 애러가 발생했습니다.",
+      data: [],
     });
   }
 });
@@ -135,13 +135,13 @@ router.get("/account/signout", verifyToken, async (req, res, next) => {
     return res.status(200).json({
       status: 200,
       message: "정상적으로 로그아웃 하였습니다.",
+      data: [],
     });
   } catch (err) {
-    console.log(err);
     return res.status(500).json({
       status: 500,
-      error: "Internal Server Error",
       message: "요청을 처리하는 중에 애러가 발생했습니다.",
+      data: [],
     });
   }
 });
@@ -149,19 +149,27 @@ router.get("/account/signout", verifyToken, async (req, res, next) => {
 //계정 탈퇴
 router.get("/account/withdraw", verifyToken, async (req, res, next) => {
   try {
+    const user_id = req.decoded.id;
+    // const [[userQueryResult]] = await conn.execute("SELECT id FROM user_profile WHERE usr_id = ?", [
+    //   user_id
+    // ]);
+    // await conn.execute("DELETE FROM usage_history WHERE id = ?", [
+    //   userQueryResult.id
+    // ]);
     await conn.execute("DELETE FROM user_profile WHERE usr_id = ?", [
-      req.decoded.id,
+      user_id
     ]);
     return res.status(200).json({
       status: 200,
       message: "정상적으로 계정을 탈퇴 하였습니다.",
+      data: []
     });
   } catch (err) {
     console.log(err);
     return res.status(500).json({
       status: 500,
-      error: "Internal Server Error",
       message: "요청을 처리하는 중에 애러가 발생했습니다.",
+      data: []
     });
   }
 });

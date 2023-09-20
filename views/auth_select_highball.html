@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Highbally</title>
+</head>
+<body>
+  <h1>제공할 하이볼 선택</h1>
+  <div>
+    <p>가게 이름: <span id="restaurant_name"></span></p>
+    <p>하이볼 목록: <span id="highball_list"></span></p>
+  </div>
+
+  <script>
+    // 로컬 스토리지에서 JSON 형식의 응답 결과 가져오기
+    const responseJson = localStorage.getItem("responseJson");
+    if (responseJson) {
+        const result = JSON.parse(responseJson);
+    } else {
+        // 로컬 스토리지에 결과가 없을 경우 예외 처리
+        document.getElementById("result_status").textContent = "결과 조회 오류.";
+    }
+  </script>
+</body>
+</html>

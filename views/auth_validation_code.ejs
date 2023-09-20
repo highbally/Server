@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Highbally</title>
+</head>
+
+<body>
+  <h1>가게 인증</h1>
+  <form id="authForm">
+    <label for="auth_code">인증 코드:</label>
+    <input type="text" id="auth_code" name="auth_code" required><br><br>
+    <button type="button" id="verifyButton">인증하기</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#verifyButton').on('click', function () {
+        const authCode = $('#auth_code').val();
+
+        // JSON 형식으로 데이터 직렬화
+        const data = { auth_code: authCode };
+
+        // AJAX 요청 보내기
+        $.ajax({
+          type: 'POST',
+          url: '/qr/auth/verify',
+          contentType: 'application/json',
+          data: JSON.stringify(data),
+          success: function (response) {
+            // 성공적인 응답을 처리합니다.
+            $('#result').html(response.message);
+          },
+          error: function (error) {
+            // 오류 발생 시 처리합니다.
+            $('#result').html('오류가 발생했습니다.');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

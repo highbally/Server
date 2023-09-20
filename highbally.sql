@@ -21,11 +21,22 @@ CREATE TABLE user_profile (
 CREATE TABLE restaurant_info (
   restaurant_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
-  opening TIME NOT NULL,
-  closing TIME NOT NULL,
-  holiday VARCHAR(30),
   picture VARCHAR(255),
   number VARCHAR(20)
+) DEFAULT CHARACTER SET UTF8MB4 COLLATE utf8mb4_general_ci;
+
+CREATE TABLE open (
+  open_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  restaurant_id INT NOT NULL,
+  mon VARCHAR(15),
+  tue VARCHAR(15),
+  wed VARCHAR(15),
+  thu VARCHAR(15),
+  fri VARCHAR(15),
+  sat VARCHAR(15),
+  sun VARCHAR(15),
+  available VARCHAR(10),
+  FOREIGN KEY (restaurant_id) REFERENCES restaurant_info(restaurant_id)
 ) DEFAULT CHARACTER SET UTF8MB4 COLLATE utf8mb4_general_ci;
 
 CREATE TABLE menu_info (
@@ -61,7 +72,7 @@ CREATE TABLE review (
   restaurant_id INT NOT NULL,
   writer VARCHAR(10) NOT NULL,
   rate DECIMAL(2,1) NOT NULL,
-  content TEXT NOT NULL,
+  content TEXT NOT N9ULL,
   FOREIGN KEY (restaurant_id) REFERENCES restaurant_info(restaurant_id)
 ) DEFAULT CHARACTER SET UTF8MB4 COLLATE utf8mb4_general_ci;
 
@@ -72,9 +83,9 @@ CREATE TABLE usage_history (
   restaurant_id INT NOT NULL,
   highball_id INT NOT NULL,
   time DATETIME NOT NULL,
-  FOREIGN KEY (id) REFERENCES user_profile(id),
-  FOREIGN KEY (restaurant_id) REFERENCES restaurant_info(restaurant_id),
-  FOREIGN KEY (highball_id) REFERENCES highball_info(highball_id)
+  -- FOREIGN KEY (id) REFERENCES user_profile(id),
+  -- FOREIGN KEY (restaurant_id) REFERENCES restaurant_info(restaurant_id),
+  -- FOREIGN KEY (highball_id) REFERENCES highball_info(highball_id)
 ) DEFAULT CHARACTER SET UTF8MB4 COLLATE utf8mb4_general_ci;
 
 CREATE TABLE markers (
@@ -87,35 +98,41 @@ CREATE TABLE markers (
 ) DEFAULT CHARACTER SET UTF8MB4 COLLATE utf8mb4_general_ci;
 
 //TEST용 예시
-INSERT INTO restaurant_info (name, opening, closing, holiday, picture, number)
-VALUES
-  ('미라쥬 펍', '17:00:00', '02:00:00', '일', 'image_a.jpg', '123-456-7890'),
-  ('여기 꼬치네', '17:00:00', '03:00:00', null, 'image_b.jpg', '0507-1321-5957');
+INSERT INTO restaurant_info (name, picture, number)
+VALUES 
+  ('미라쥬펍', 'image_a.jpg', '02-6012-9433'),
+  ('여기,꼬치네', 'image_b.jpg', '0507-1321-5957'),
+  ('섬사나이', 'image_c.jpg', '0507-1335-2481');
+
+INSERT INTO open (restaurant_id, mon, tue, wed, thu, fri, sat, sun, available)
+VALUES 
+  (1, '17:00 - 02:00', '17:00 - 02:00', '17:00 - 02:00','17:00 - 02:00', '17:00 - 02:00', '17:00 - 02:00', '휴무', '월화수목금토'),
+  (2, '17:00 - 03:00', '17:00 - 03:00', '17:00 - 03:00','17:00 - 03:00', '17:00 - 03:00', '17:00 - 03:00', '17:00 - 03:00', '월화수목금토일'),
+  (3, '17:00 - 01:00', '17:00 - 01:00', '17:00 - 01:00','17:00 - 01:00', '17:00 - 01:00', '17:00 - 01:00', '휴무', '월화수목금토');
 
 INSERT INTO markers (restaurant_id, latitude, longitude, address)
 VALUES
-  (1, 37.5665, 126.9780, "서울 중구 인사동"),
-  (2, 37.5663, 126.9779, "서울 중구 회기동"),
-  (3, 37.1234, 127.5678, "서울 노원구 하계동"),
-  (4, 38.9876, 126.5432, "서울 노원구 공릉동 철길"),
-  (5, 39.8765, 128.4321, "서울 노원구 공릉동 철길");
+  (1, 37.6251189, 127.0772512, "서울 노원구 동일로184길 69-9 2층"), --미라쥬펍
+  (2, 37.6267907, 127.0763521, "서울 노원구 동일로192길 62 2층"), --여기 꼬치네
+  (3, 37.6235396, 127.0782706, "서울 노원구 공릉로39길 21 섬사나이"); --섬사나이
 
-INSERT INTO highball_info (restaurant_id, name, price, picture, description, representation)
+INSERT INTO highball_info (restaurant_id, name, price, picture, description)
 VALUES
-  (4, "스모키 얼그레이 하이볼", 8000, "highball1.jpg", "칼리일위스키. 묵직한 훈연의 홍차향", true),
-  (4, "미녀 석류 하이볼", 8000, "highball2.jpg", "존바위스키. 석류의 새콤달콤함", false),
-  (4, "봄베이 하이볼", 9000, "highball3.jpg", "봄베이. 상큼한 오렌지향 꽃향, 알싸함", true),
+  (1, "스모키 얼그레이 하이볼", 8000, "highball1.jpg", "칼리일위스키. 묵직한 훈연의 홍차향."),
+  (1, "미녀 석류 하이볼", 8000, "highball2.jpg", "존바위스키. 석류의 새콤달콤함."),
+  (1, "캐모마일리치 하이볼", 8000, "highball3.jpg", "칼라일위스키. 리치의 달콤하고 햐긋함."),
+  (1, "시나몬스틱하이볼", 8000, "highball4.jpg", "풍부한 시나몬 향."),
   (5, "위스키 하이볼", 6500, "highball4.jpg", "480ML", true),
   (5, "연태 하이볼", 7000, "highball5.jpg","480ML", true),
   (5, "얼그레이 하이볼", 7000, "highball6.jpg","480ML", true);
 
-INSERT INTO menu_info (restaurant_id, name, price, picture, description)
-VALUES
-(4, "미라쥬 플레이트", 20000, "menu1.jpg", "미리쥬키친에서 직접 구운 양과자와 치즈들로 플레이팅, 눈으로 즐겨도 반할만한 플레이트 메뉴"),
-(4, "대창 순두부 낙곱새", 34000, "menu2.jpg", "입안에서 녹아내리는 순두부와 대창에 특제양념 소스로 얼큰하게 맛을 낸 미라쥬펍 만의 낙곱새"),
-(4, "맥앤치즈 & 포테이토", 12000, "menu3.jpg", "부드럽고 고소한 맥앤치즈에 감자튀김을 더해 부드러움과 바삭함을 동시에 즐길 수 있는 메뉴"),
-(5, "꼬치 구이 모둠 세트", 18000, "menu4.jpg", "여기, 꼬치네 만의 꼬치구이를 다양하게 즐기실 수 있습니다."),
-(5, "야끼소바", 12000, "menu5.jpg", "일본식 볶음국수");
+-- INSERT INTO menu_info (restaurant_id, name, price, picture, description)
+-- VALUES
+-- (4, "미라쥬 플레이트", 20000, "menu1.jpg", "미리쥬키친에서 직접 구운 양과자와 치즈들로 플레이팅, 눈으로 즐겨도 반할만한 플레이트 메뉴"),
+-- (4, "대창 순두부 낙곱새", 34000, "menu2.jpg", "입안에서 녹아내리는 순두부와 대창에 특제양념 소스로 얼큰하게 맛을 낸 미라쥬펍 만의 낙곱새"),
+-- (4, "맥앤치즈 & 포테이토", 12000, "menu3.jpg", "부드럽고 고소한 맥앤치즈에 감자튀김을 더해 부드러움과 바삭함을 동시에 즐길 수 있는 메뉴"),
+-- (5, "꼬치 구이 모둠 세트", 18000, "menu4.jpg", "여기, 꼬치네 만의 꼬치구이를 다양하게 즐기실 수 있습니다."),
+-- (5, "야끼소바", 12000, "menu5.jpg", "일본식 볶음국수");
 
 INSERT INTO menu_list (restaurant_id, menulist)
 VALUES

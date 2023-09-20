@@ -16,8 +16,9 @@ const verifyToken = async (req, res, next) => {
 
     if (isRevoked) {
       return res.status(401).json({
-        error: "Invalid Token",
+        status: 401,
         message: "유효한 토큰이 아닙니다. 다시 로그인하여 주십시오.",
+        data: []
       });
     }
 
@@ -25,8 +26,9 @@ const verifyToken = async (req, res, next) => {
 
     if (req.decoded.allowResult) {
       return res.status(401).json({
-        error: "Invalid Token",
-        message: "엑세스 토큰이 유효하지 않습니다.",
+        status: 401,
+        message: "유효한 토큰이 아닙니다. 다시 로그인하여 주십시오.",
+        data: []
       });
     }
 
@@ -44,14 +46,15 @@ const verifyToken = async (req, res, next) => {
   } catch (err) {
     if (err.name == "TokenExpiredError") {
       return res.status(403).json({
-        error: "403 Forbidden",
+        status: 403,
         message: "토큰이 만료됐습니다.",
+        data: []
       });
     }
-    console.log(err);
-    return res.status(403).json({
-      error: "403 Forbidden",
+    return res.status(401).json({
+      status:401,
       message: "유효하지 않은 토큰입니다.",
+      data:[]
     });
   }
 };

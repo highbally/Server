@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>하이볼리</title>
+</head>
+<body>
+    <h1>가게 인증</h1>
+    <form action="/qr/auth/verify" method="post">
+        <label for="input_code">가게 인증 코드:</label>
+        <input type="text" id="input_code" name="input_code" required><br><br>
+        <input type="hidden" name="id" value="<%= id %>">
+        <button type="submit">인증하기</button>
+    </form>
+</body>
+</html>

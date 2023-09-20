@@ -1,6 +1,8 @@
 import app from '../app.js';
-import http from 'http';
+import https from 'https';  // https 모듈 추가
+import fs from 'fs';        // 파일 시스템 모듈 추가
 import { createRequire } from  'module'
+
 
 const  require = createRequire(import.meta.url);
 const debug = require('debug')('project:server');
@@ -10,8 +12,14 @@ const debug = require('debug')('project:server');
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
-// HTTP 서버 생성
-const server = http.createServer(app);
+// HTTPS 옵션: 인증서와 개인 키 파일 경로 지정
+const options = {
+  key: fs.readFileSync('/etc/letsencrypt/live/www.highbally.com/privkey.pem'),         // 개인 키 파일 경로
+  cert: fs.readFileSync('/etc/letsencrypt/live/www.highbally.com/fullchain.pem')          // 인증서 파일 경로
+};
+
+// HTTPs 서버 생성
+const server = https.createServer(options, app);
 
 // server.listen: 서버가 수신 대기할 포트 지정 / server.on: 콜백 함수 정의
 server.listen(port, () => {
