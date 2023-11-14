@@ -13,6 +13,7 @@ router.post("/scode", verifyToken, async(req,res) => {
             "SELECT scode FROM scodes WHERE scode = ?",
             [inputCode]
         );
+        console.log(queryResult);
         if(queryResult) {
             const queryScode = queryResult.scode
             await conn.execute(

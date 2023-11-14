@@ -5,6 +5,30 @@ import verifyToken from "../middlewares/accessControl.js";
 const conn = sqlCon();
 const router = express.Router();
 
+import crypto from 'crypto';
+import util from "util";
+const randomBytesPromise = util.promisify(crypto.randomBytes);
+const pbkdf2Promise = util.promisify(crypto.pbkdf2);
+//비밀번호 암호화용 메소드
+const createSalt = async () => {
+  const buf = await randomBytesPromise(64);
+  return buf.toString("base64");
+};
+const createHashedPassword = async (password) => {
+  const salt = await createSalt();
+  const key = await pbkdf2Promise(password, salt, 104906, 64, "sha512");
+  const hashedPassword = key.toString("base64");
+  return { hashedPassword, salt };
+};
+//비밀번호 검증
+const verifyPassword = async (password, userSalt, userPassword) => {
+  const key = await pbkdf2Promise(password, userSalt, 104906, 64, "sha512");
+  const hashedPassword = key.toString("base64");
+  if (hashedPassword === userPassword) return true;
+  return false;
+};
+
+
 //하단 바 마이페이지 눌렀을 때
 router.get("/", verifyToken, async (req, res, next) => {
   try {
@@ -88,16 +112,32 @@ router.post("/update", verifyToken, async (req, res, next) => {
 router.post("/account/change-pwd", verifyToken, async (req, res, next) => {
   const body = req.body;
   try {
-    const [queryResult] = await conn.execute(
-      "SELECT usr_pwd FROM user_profile WHERE usr_id = ?",
+    const [userQueryResult] = await conn.execute(
+      "SELECT usr_id, usr_pwd, salt FROM user_profile WHERE usr_id = ?",
       [req.decoded.id]
     );
-    console.log(queryResult[0].usr_pwd);
-    console.log(body.usr_pwd);
-    if (body.usr_pwd === queryResult[0].usr_pwd) {
+    
+    const queryResult = userQueryResult[0];
+    const isPasswordValid = await verifyPassword(body.usr_pwd, queryResult.salt, queryResult.usr_pwd)
+    if (isPasswordValid) {
+      const isNewPasswordValid = await verifyPassword(body.new_usr_pwd, queryResult.salt, queryResult.usr_pwd)
+
+      console.log(isNewPasswordValid, isPasswordValid)
+      // 새로운 비밀번호로 현재 로그인이 된다면 똑같은 비밀번호로 수정하는 것이므로 막고 이거 확인 후에 기존거랑 같지 않다면 비밀번호 재설정 로직 수행
+      if(isNewPasswordValid) {
+      return res.status(400).json({
+        status: 400,
+        message: "기존 비밀번호와 동일한 비밀번호는 사용할 수 없습니다.",
+        data: [],
+      });
+      }
+
+      const { hashedPassword, salt } = await createHashedPassword(body.new_usr_pwd);
+      console.log(hashedPassword)
+      console.log(queryResult.usr_pwd)
       await conn.execute(
-        "UPDATE user_profile SET  usr_pwd = ? WHERE usr_id =?",
-        [body.new_usr_pwd, req.decoded.id]
+        "UPDATE user_profile SET usr_pwd = ?, salt = ? WHERE usr_id = ?",
+        [hashedPassword, salt, queryResult.usr_id]
       );
       return res.status(200).json({
         status: 200,
@@ -112,6 +152,7 @@ router.post("/account/change-pwd", verifyToken, async (req, res, next) => {
       });
     }
   } catch (err) {
+    console.log(err)
     return res.status(500).json({
       status: 500,
       message: "요청을 처리하는 중에 애러가 발생했습니다.",

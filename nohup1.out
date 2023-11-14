@@ -71216,3 +71216,700 @@ ReferenceError: userSelectResult is not defined
 [0mGET /autodiscover/autodiscover.json?@zdi/Powershell [33m404[0m 0.895 ms - 300[0m
 [0mGET / [33m404[0m 0.962 ms - 300[0m
 [0mGET / [33m404[0m 0.992 ms - 300[0m
+[0mGET / [33m404[0m 1.042 ms - 300[0m
+[0mGET / [33m404[0m 0.925 ms - 300[0m
+[0mGET / [33m404[0m 0.927 ms - 300[0m
+[0mGET /script [33m404[0m 0.974 ms - 300[0m
+[0mGET /login [33m404[0m 1.039 ms - 300[0m
+[0mGET /jenkins/login [33m404[0m 0.976 ms - 300[0m
+[0mGET /manager/html [33m404[0m 1.057 ms - 300[0m
+[0mGET /users/sign_in [33m404[0m 1.206 ms - 300[0m
+[0mPOST /auth/signin [32m200[0m 20.276 ms - 534[0m
+[0mGET /mypage [32m200[0m 18.163 ms - 145[0m
+[0mGET /main/list [36m304[0m 28.081 ms - -[0m
+[0mGET /main/markers [36m304[0m 2.763 ms - -[0m
+[0mGET /mypage [36m304[0m 4.737 ms - -[0m
+[0mGET /mypage [36m304[0m 5.332 ms - -[0m
+[0mGET /mypage [36m304[0m 4.755 ms - -[0m
+[0mGET /mypage [36m304[0m 4.794 ms - -[0m
+[
+  {
+    id: 1,
+    usr_id: 'dlwntmd5847',
+    usr_pwd: '5847dlwntmd',
+    name: '이주승',
+    nickname: 'JuseungL',
+    phonenumber: '01035115847',
+    gender: '남성',
+    birth: '20000619',
+    subscribed: 1,
+    expired: 2023-10-13T05:08:54.000Z,
+    refresh_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRsd250bWQ1ODQ3Iiwibmlja19uYW1lIjoiSnVzZXVuZ0wiLCJpYXQiOjE2OTQ2NjMzMTEsImV4cCI6MTY5NzI1NTMxMSwiaXNzIjoiQGp1c2V1bmcifQ.CM4JdFGUjZH1rQHjionYH4AEovsN-zYOoeID7P0V4os',
+    picture: null,
+    available: 1,
+    qr_activated: 0
+  },
+  {
+    id: 7,
+    usr_id: 'jihyeok0214',
+    usr_pwd: 'chlwlgur214!',
+    name: '최지혁',
+    nickname: 'Jihyeok',
+    phonenumber: '01091556836',
+    gender: '남성',
+    birth: '20000214',
+    subscribed: 1,
+    expired: null,
+    refresh_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImppaHllb2swMjE0Iiwibmlja19uYW1lIjoiSmloeWVvayIsImlhdCI6MTY5NDYwMzA5NSwiZXhwIjoxNjk3MTk1MDk1LCJpc3MiOiJAanVzZXVuZyJ9.5liGCL5IStzaFmHYi4HbXZQseXDMjdhYAWVdGZAvazQ',
+    picture: null,
+    available: 1,
+    qr_activated: 0
+  },
+  {
+    id: 28,
+    usr_id: 'test1',
+    usr_pwd: '111111',
+    name: '이주승',
+    nickname: 'test1',
+    phonenumber: '01012341234',
+    gender: '남성',
+    birth: '20230815',
+    subscribed: 1,
+    expired: 2023-10-14T03:23:09.000Z,
+    refresh_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InRlc3QxIiwibmlja19uYW1lIjoidGVzdDEiLCJpYXQiOjE2OTQ2NjI5MjksImV4cCI6MTY5NzI1NDkyOSwiaXNzIjoiQGp1c2V1bmcifQ.rvcH8DWNTbxsWwZfW_VjJyN8l5Y-L3cyMHy6RZ13ZN8',
+    picture: null,
+    available: 1,
+    qr_activated: 1
+  },
+  {
+    id: 29,
+    usr_id: 'test2',
+    usr_pwd: '222222',
+    name: '최지혁',
+    nickname: 'test2',
+    phonenumber: '01012341234',
+    gender: '남성',
+    birth: '20230815',
+    subscribed: 0,
+    expired: null,
+    refresh_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InRlc3QyIiwibmlja19uYW1lIjoidGVzdDIiLCJpYXQiOjE2OTUyMTA0MDEsImV4cCI6MTY5NzgwMjQwMSwiaXNzIjoiQGp1c2V1bmcifQ.wdJ3ufJqkjUfaGwKI7tnQynE7eBzbJ359IfAYXERIEU',
+    picture: null,
+    available: 0,
+    qr_activated: 1
+  },
+  {
+    id: 30,
+    usr_id: 'test3',
+    usr_pwd: '8020abcd**',
+    name: '변상우',
+    nickname: 'test3',
+    phonenumber: '01012341234',
+    gender: '남성',
+    birth: '20230815',
+    subscribed: 1,
+    expired: 2023-10-17T13:37:12.000Z,
+    refresh_token: null,
+    picture: null,
+    available: 1,
+    qr_activated: 0
+  },
+  {
+    id: 32,
+    usr_id: 'test5',
+    usr_pwd: '555555',
+    name: '박선현',
+    nickname: 'test5',
+    phonenumber: '01012341234',
+    gender: '남성',
+    birth: '20230815',
+    subscribed: 1,
+    expired: 2023-10-17T17:07:34.000Z,
+    refresh_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InRlc3Q1Iiwibmlja19uYW1lIjoidGVzdDUiLCJpYXQiOjE2OTUxMzI2NTMsImV4cCI6MTY5NzcyNDY1MywiaXNzIjoiQGp1c2V1bmcifQ.I4eFp_0mR4mGN-5IZsmG9WWo888AEU7xnGhuwPdF35k',
+    picture: null,
+    available: 1,
+    qr_activated: 1
+  },
+  {
+    id: 33,
+    usr_id: 'nice',
+    usr_pwd: '8020abcd*',
+    name: '상우',
+    nickname: 'nice',
+    phonenumber: '01026765349',
+    gender: '남성',
+    birth: '19990101',
+    subscribed: 1,
+    expired: 2023-10-17T15:56:07.000Z,
+    refresh_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Im5pY2UiLCJuaWNrX25hbWUiOiJuaWNlIiwiaWF0IjoxNjk1MDAzNzE0LCJleHAiOjE2OTc1OTU3MTQsImlzcyI6IkBqdXNldW5nIn0.RCoU7vVG_wTv2zrz8MzbH_VVtLc0QgkH0XSOkJFI6U0',
+    picture: null,
+    available: 1,
+    qr_activated: 1
+  },
+  {
+    id: 34,
+    usr_id: 'nicenice',
+    usr_pwd: '8020abcd*',
+    name: '변상우',
+    nickname: 'nicenice',
+    phonenumber: '01026765349',
+    gender: '1',
+    birth: '19990518',
+    subscribed: 0,
+    expired: null,
+    refresh_token: null,
+    picture: null,
+    available: 0,
+    qr_activated: 1
+  },
+  {
+    id: 35,
+    usr_id: 'nicefinal',
+    usr_pwd: '8020abcd*',
+    name: '변상우',
+    nickname: 'nicefinal',
+    phonenumber: '01026765349',
+    gender: '남성',
+    birth: '19990518',
+    subscribed: 0,
+    expired: null,
+    refresh_token: null,
+    picture: null,
+    available: 0,
+    qr_activated: 1
+  },
+  {
+    id: 36,
+    usr_id: 'tkddn',
+    usr_pwd: '8020abcd*',
+    name: '변상우',
+    nickname: 'boogios',
+    phonenumber: '01026765349',
+    gender: '남성',
+    birth: '19990518',
+    subscribed: 0,
+    expired: null,
+    refresh_token: null,
+    picture: null,
+    available: 0,
+    qr_activated: 1
+  },
+  {
+    id: 38,
+    usr_id: 'test123',
+    usr_pwd: '8020abcd*',
+    name: '변상우',
+    nickname: 'test123',
+    phonenumber: '01026765349',
+    gender: '남성',
+    birth: '19990518',
+    subscribed: 0,
+    expired: null,
+    refresh_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InRlc3QxMjMiLCJuaWNrX25hbWUiOiJ0ZXN0MTIzIiwiaWF0IjoxNjk1MDQxNDc2LCJleHAiOjE2OTc2MzM0NzYsImlzcyI6IkBqdXNldW5nIn0.yLrE741b74S48q1yXjvgPEDubrPOwt_7CrsrGz4c_3k',
+    picture: null,
+    available: 0,
+    qr_activated: 1
+  },
+  {
+    id: 39,
+    usr_id: 'test111',
+    usr_pwd: 'abcd1234*',
+    name: '변상우',
+    nickname: 'test11',
+    phonenumber: '01026765349',
+    gender: '남성',
+    birth: '19990518',
+    subscribed: 0,
+    expired: null,
+    refresh_token: null,
+    picture: null,
+    available: 0,
+    qr_activated: 1
+  },
+  {
+    id: 40,
+    usr_id: 'apple',
+    usr_pwd: 'apple1234*',
+    name: '변상우',
+    nickname: 'apple',
+    phonenumber: '01026765349',
+    gender: '남성',
+    birth: '19990518',
+    subscribed: 0,
+    expired: null,
+    refresh_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFwcGxlIiwibmlja19uYW1lIjoiYXBwbGUiLCJpYXQiOjE2OTUwNDg2NTMsImV4cCI6MTY5NzY0MDY1MywiaXNzIjoiQGp1c2V1bmcifQ.OH0a5ES_sAwGgGOWK-5RyKmZ2wVEdI3OtZseSLcAP0I',
+    picture: null,
+    available: 0,
+    qr_activated: 1
+  }
+]
+[0mGET /index [32m200[0m 18.468 ms - 4942[0m
+[0mGET /favicon.ico [33m404[0m 1.189 ms - 300[0m
+[0mGET /mypage/account/signout [36m304[0m 15.818 ms - -[0m
+[0mGET /mypage [33m401[0m 2.239 ms - 73[0m
+[0mGET /main/list [36m304[0m 3.199 ms - -[0m
+[0mGET /mypage [33m401[0m 3.403 ms - 73[0m
+[0mGET /main/markers [36m304[0m 26.928 ms - -[0m
+[0mPOST /auth/signin [33m401[0m 2.349 ms - 80[0m
+[0mPOST /auth/signin [32m200[0m 8.094 ms - 534[0m
+[0mGET /mypage [32m200[0m 4.937 ms - 145[0m
+[0mGET /main/list [36m304[0m 2.448 ms - -[0m
+[0mGET /main/markers [36m304[0m 2.038 ms - -[0m
+[0mGET /main/markers [36m304[0m 1.888 ms - -[0m
+[0mGET /main/detail?restaurantId=6 [36m304[0m 5.794 ms - -[0m
+[0mGET /main/markers [36m304[0m 2.453 ms - -[0m
+[0mGET /mypage [36m304[0m 5.103 ms - -[0m
+[0mGET /main/markers [36m304[0m 2.306 ms - -[0m
+[0mGET /main/list [36m304[0m 17.694 ms - -[0m
+[0mGET /main/detail?restaurantId=4 [36m304[0m 6.633 ms - -[0m
+[0mGET /mypage [36m304[0m 4.983 ms - -[0m
+[0mGET /mypage [36m304[0m 5.065 ms - -[0m
+[0mGET /qr/create [32m200[0m 15.523 ms - 278[0m
+[0mGET /qr/auth/verify/web/?id=30&time=Wed%20Sep%2020%202023%2020:49:58%20GMT+0900%20(Korean%20Standard%20Time) [32m200[0m 4.011 ms - 538[0m
+[0mGET /favicon.ico [33m404[0m 1.148 ms - 300[0m
+30 11
+[ '미녀 석류 하이볼', '애플모히또 하이볼', '소다 하이볼', '블루하와이 하이볼' ]
+[0mPOST /qr/auth/verify [32m200[0m 27.966 ms - 1396[0m
+[Object: null prototype] {
+  selectHighball: '소다 하이볼',
+  id: '30',
+  restaurant_id: '1',
+  restaurant_name: '미라쥬펍'
+}
+[0mPOST /qr/confirm/update [32m200[0m 27.041 ms - 285[0m
+[0mGET /mypage [32m200[0m 5.146 ms - 145[0m
+[0mGET /mypage [36m304[0m 5.082 ms - -[0m
+[0mGET /mypage [36m304[0m 4.762 ms - -[0m
+[0mGET /main/list [36m304[0m 2.328 ms - -[0m
+[0mGET / [33m404[0m 1.005 ms - 300[0m
+[0mGET / [33m404[0m 1.016 ms - 300[0m
+[0mGET / [33m404[0m 0.955 ms - 300[0m
+[0mGET / [33m404[0m 0.899 ms - 300[0m
+[0mGET / [33m404[0m 1.074 ms - 300[0m
+[0mGET / [33m404[0m 0.923 ms - 300[0m
+[0mGET / [33m404[0m 0.940 ms - 300[0m
+[0mGET / [33m404[0m 1.075 ms - 300[0m
+[0mGET /favicon.ico [33m404[0m 1.009 ms - 300[0m
+[0mGET / [33m404[0m 0.946 ms - 300[0m
+[0mGET /favicon.ico [33m404[0m 1.093 ms - 300[0m
+[0mGET /dns-query?name=dnsscan.shadowserver.org&type=A [33m404[0m 0.934 ms - 300[0m
+[0mGET / [33m404[0m 0.965 ms - 300[0m
+[0mGET /api/v2/static/not.found [33m404[0m 0.954 ms - 300[0m
+[0mGET /remote/logincheck [33m404[0m 1.030 ms - 300[0m
+[0mGET /geoserver/web/ [33m404[0m 0.932 ms - 300[0m
+[0mGET / [33m404[0m 0.923 ms - 300[0m
+[0mPOST /auth/signin [32m200[0m 20.806 ms - 534[0m
+[0mGET /mypage [32m200[0m 18.806 ms - 145[0m
+[0mGET /main/list [32m200[0m 9.869 ms - 2710[0m
+[0mGET /main/markers [32m200[0m 18.638 ms - 985[0m
+[0mGET /mypage [36m304[0m 5.531 ms - -[0m
+apple
+40
+[]
+true
+[0mGET /subscribe/cancel [32m200[0m 30.300 ms - 70[0m
+[0mPOST /subscribe/scode [32m200[0m 19.070 ms - 104[0m
+apple
+40
+[]
+true
+[0mGET /subscribe/cancel [36m304[0m 25.734 ms - -[0m
+[0mGET /mypage [32m200[0m 5.186 ms - 145[0m
+[0mGET /mypage [36m304[0m 4.984 ms - -[0m
+apple
+40
+[]
+true
+[0mGET /subscribe/cancel [36m304[0m 23.722 ms - -[0m
+[0mGET /mypage [36m304[0m 4.801 ms - -[0m
+[0mGET /main/list [36m304[0m 3.805 ms - -[0m
+[0mGET /main/markers [36m304[0m 2.012 ms - -[0m
+apple
+40
+[]
+true
+[0mGET /subscribe/cancel [36m304[0m 27.913 ms - -[0m
+[0mGET /main/list [36m304[0m 3.101 ms - -[0m
+[0mGET /main/markers [36m304[0m 6.542 ms - -[0m
+[0mGET /mypage [36m304[0m 5.434 ms - -[0m
+apple
+40
+[]
+true
+[0mGET /subscribe/cancel [36m304[0m 25.240 ms - -[0m
+[0mGET / [33m404[0m 1.588 ms - 300[0m
+[0mGET /favicon.ico [33m404[0m 1.182 ms - 300[0m
+[0mGET /robots.txt [33m404[0m 0.908 ms - 300[0m
+[0mGET /.well-known/security.txt [33m404[0m 0.908 ms - 300[0m
+[0mGET / [33m404[0m 1.038 ms - 300[0m
+[0mGET /robots.txt [33m404[0m 1.250 ms - 300[0m
+[0mGET / [33m404[0m 0.940 ms - 300[0m
+[0mGET / [33m404[0m 0.892 ms - 300[0m
+[0mGET / [33m404[0m 0.937 ms - 300[0m
+[0mGET /favicon.ico [33m404[0m 0.951 ms - 300[0m
+[0mGET / [33m404[0m 0.982 ms - 300[0m
+[0mGET / [33m404[0m 1.076 ms - 300[0m
+[0mGET / [33m404[0m 1.577 ms - 300[0m
+[Thu Sep 21 2023 12:00:00 GMT+0900 (Korean Standard Time)] 7개의 레코드 업데이트 완료
+[0mGET / [33m404[0m 1.273 ms - 300[0m
+[0mGET /ecp/Current/exporttool/microsoft.exchange.ediscovery.exporttool.application [33m404[0m 0.952 ms - 300[0m
+[0mGET / [33m404[0m 1.059 ms - 300[0m
+[0mGET / [33m404[0m 1.039 ms - 300[0m
+[0mGET / [33m404[0m 0.960 ms - 300[0m
+[0mGET / [33m404[0m 1.009 ms - 300[0m
+[0mGET / [33m404[0m 0.899 ms - 300[0m
+[0mGET /favicon.ico [33m404[0m 0.965 ms - 300[0m
+[0mGET /dns-query?name=dnsscan.shadowserver.org&type=A [33m404[0m 0.893 ms - 300[0m
+[0mGET / [33m404[0m 0.952 ms - 300[0m
+[0mGET / [33m404[0m 1.006 ms - 300[0m
+[0mGET /api/v2/static/not.found [33m404[0m 0.894 ms - 300[0m
+[0mGET /remote/logincheck [33m404[0m 0.913 ms - 300[0m
+[0mGET /geoserver/web/ [33m404[0m 0.992 ms - 300[0m
+[0mGET / [33m404[0m 0.948 ms - 300[0m
+[0mGET /main/list [32m200[0m 10.237 ms - 2710[0m
+[0mGET /main/markers [32m200[0m 2.599 ms - 985[0m
+[0mGET /main/detail?restaurantId=2 [32m200[0m 6.255 ms - 1088[0m
+[0mGET /main/markers [36m304[0m 2.210 ms - -[0m
+[0mGET /main/list [36m304[0m 11.017 ms - -[0m
+[0mGET /main/detail?restaurantId=1 [32m200[0m 5.114 ms - 1061[0m
+[0mGET /main/detail?restaurantId=2 [36m304[0m 6.001 ms - -[0m
+[0mGET / [33m404[0m 1.171 ms - 300[0m
+[0mGET /favicon.ico [33m404[0m 1.078 ms - 300[0m
+[0mGET /dns-query?name=dnsscan.shadowserver.org&type=A [33m404[0m 0.919 ms - 300[0m
+[0mGET / [33m404[0m 0.936 ms - 300[0m
+[0mGET /api/v2/static/not.found [33m404[0m 0.923 ms - 300[0m
+[0mGET /remote/logincheck [33m404[0m 0.925 ms - 300[0m
+[0mGET /geoserver/web/ [33m404[0m 0.891 ms - 300[0m
+[0mGET / [33m404[0m 0.917 ms - 300[0m
+[0mGET /mypage [33m403[0m 12.080 ms - 66[0m
+ReferenceError: userSelectResult is not defined
+    at file:///home/server/routes/auth.js:546:5
+    at Layer.handle [as handle_request] (/home/server/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/server/node_modules/express/lib/router/route.js:144:13)
+    at Route.dispatch (/home/server/node_modules/express/lib/router/route.js:114:3)
+    at Layer.handle [as handle_request] (/home/server/node_modules/express/lib/router/layer.js:95:5)
+    at /home/server/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/server/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/server/node_modules/express/lib/router/index.js:280:10)
+    at Function.handle (/home/server/node_modules/express/lib/router/index.js:175:3)
+    at router (/home/server/node_modules/express/lib/router/index.js:47:12)
+[0mGET /auth/signin/renew-token [31m500[0m 17.252 ms - 96[0m
+[0mGET /main/markers [32m200[0m 1.742 ms - 985[0m
+[0mGET /main/list [32m200[0m 2.178 ms - 2710[0m
+[0mGET / [33m404[0m 0.955 ms - 300[0m
+[0mGET /main/list [32m200[0m 2.460 ms - 2710[0m
+[0mGET /main/markers [32m200[0m 2.101 ms - 985[0m
+[0mGET /main/list [36m304[0m 2.427 ms - -[0m
+[0mGET /main/markers [36m304[0m 1.962 ms - -[0m
+[0mGET /main/detail?restaurantId=2 [32m200[0m 4.336 ms - 1088[0m
+[0mGET /main/list [36m304[0m 2.707 ms - -[0m
+[0mGET /main/markers [36m304[0m 1.845 ms - -[0m
+[0mGET /main/list [32m200[0m 2.522 ms - 2710[0m
+[0mGET /main/markers [32m200[0m 1.770 ms - 985[0m
+[0mGET /main/detail?restaurantId=2 [32m200[0m 4.549 ms - 1088[0m
+[0mGET /main/detail?restaurantId=3 [32m200[0m 4.934 ms - 778[0m
+[0mGET /main/detail?restaurantId=4 [32m200[0m 3.876 ms - 1521[0m
+[0mGET /main/list [36m304[0m 3.986 ms - -[0m
+[0mGET /main/markers [36m304[0m 1.906 ms - -[0m
+[0mGET /main/detail?restaurantId=3 [32m200[0m 4.045 ms - 778[0m
+[0mGET /main/detail?restaurantId=3 [36m304[0m 4.076 ms - -[0m
+[0mGET /main/detail?restaurantId=2 [32m200[0m 5.399 ms - 1088[0m
+[0mGET /main/detail?restaurantId=4 [32m200[0m 13.182 ms - 1521[0m
+[0mGET /main/detail?restaurantId=6 [32m200[0m 4.663 ms - 796[0m
+[0mGET / [33m404[0m 1.350 ms - 300[0m
+[0mGET /main/detail?restaurantId=6 [36m304[0m 3.875 ms - -[0m
+[0mGET /main/list [36m304[0m 2.570 ms - -[0m
+[0mGET / [33m404[0m 1.064 ms - 300[0m
+[0mGET /main/markers [36m304[0m 2.046 ms - -[0m
+[0mGET /main/detail?restaurantId=3 [36m304[0m 3.555 ms - -[0m
+[0mGET /main/detail?restaurantId=7 [32m200[0m 4.264 ms - 832[0m
+[0mGET /main/list [36m304[0m 2.543 ms - -[0m
+[0mGET /main/markers [36m304[0m 1.897 ms - -[0m
+[0mGET /version [33m404[0m 1.297 ms - 300[0m
+Response Result Code: 1200
+Response Result Message: 오류 없음
+Response Code: P000
+Result Code: 0000
+Site Code: Q0MwMzI=
+Token Version ID: 2023092120321714-NCFCCC032-EC3C1-CFCGE3GH67
+Token Value: u5dt7VvCxAmAOXZTwfDIKtEChJhXrUg1fQS26sIIMWs=
+Period: 3600
+[0mPOST /auth/signup/nice/issue_auth_token [32m200[0m 75.237 ms - 520[0m
+Response Result Code: 1200
+Response Result Message: 오류 없음
+Response Code: P000
+Result Code: 0000
+Site Code: Q0MwMzI=
+Token Version ID: 2023092120322041-NCGBCC032-321AC-F34CD75EC9
+Token Value: pt4t+LEPT0fvtsM1xoRoFbDljMvumP9HC0qKQO7NwmI=
+Period: 3600
+[0mPOST /auth/signup/nice/issue_auth_token [32m200[0m 60.580 ms - 520[0m
+Response Result Code: 1200
+Response Result Message: 오류 없음
+Response Code: P000
+Result Code: 0000
+Site Code: Q0MwMzI=
+Token Version ID: 20230921203223CC-NC2BCC032-7AGHD-C3531D9069
+Token Value: Dzo8v7N1im0a70rETbsnJlYyRtYSYk9v3Xlm82Iuaho=
+Period: 3600
+[0mPOST /auth/signup/nice/issue_auth_token [32m200[0m 38.472 ms - 520[0m
+[0mGET / [33m404[0m 1.023 ms - 300[0m
+[0mGET /robots.txt [33m404[0m 0.928 ms - 300[0m
+[0mGET /autodiscover/autodiscover.json?@zdi/Powershell [33m404[0m 0.889 ms - 300[0m
+[0mGET / [33m404[0m 0.921 ms - 300[0m
+[0mGET / [33m404[0m 0.854 ms - 300[0m
+[0mGET / [33m404[0m 1.542 ms - 300[0m
+[0mGET / [33m404[0m 0.956 ms - 300[0m
+[0mGET / [33m404[0m 0.995 ms - 300[0m
+[0mGET / [33m404[0m 1.002 ms - 300[0m
+[0mGET / [33m404[0m 1.266 ms - 300[0m
+[0mGET / [33m404[0m 1.069 ms - 300[0m
+[0mGET / [33m404[0m 0.946 ms - 300[0m
+[0mGET /robots.txt [33m404[0m 0.941 ms - 300[0m
+[0mGET /sitemap.xml [33m404[0m 0.980 ms - 300[0m
+[0mGET /.well-known/security.txt [33m404[0m 0.962 ms - 300[0m
+[0mGET /favicon.ico [33m404[0m 0.961 ms - 300[0m
+[0mGET /autodiscover/autodiscovers/ [33m404[0m 1.009 ms - 300[0m
+[0mGET /autodiscover/autodiscover%20/ [33m404[0m 0.932 ms - 300[0m
+[0mGET /autodiscover/autodiscoverrs/ [33m404[0m 1.020 ms - 300[0m
+[0mGET / [33m404[0m 0.987 ms - 300[0m
+[0mGET /favicon.ico [33m404[0m 1.049 ms - 300[0m
+[0mGET /robots.txt [33m404[0m 1.100 ms - 300[0m
+[0mGET /sitemap.xml [33m404[0m 0.975 ms - 300[0m
+[0mGET / [33m404[0m 0.966 ms - 300[0m
+[0mGET / [33m404[0m 0.927 ms - 300[0m
+[0mGET /ecp/Current/exporttool/microsoft.exchange.ediscovery.exporttool.application [33m404[0m 1.054 ms - 300[0m
+[0mGET / [33m404[0m 0.941 ms - 300[0m
+[0mGET /favicon.ico [33m404[0m 0.993 ms - 300[0m
+[0mGET /dns-query?name=dnsscan.shadowserver.org&type=A [33m404[0m 1.030 ms - 300[0m
+[0mGET /api/v2/static/not.found [33m404[0m 0.934 ms - 300[0m
+[0mGET /remote/logincheck [33m404[0m 0.965 ms - 300[0m
+[0mGET /geoserver/web/ [33m404[0m 0.972 ms - 300[0m
+[Fri Sep 22 2023 12:00:00 GMT+0900 (Korean Standard Time)] 7개의 레코드 업데이트 완료
+[0mGET / [33m404[0m 0.917 ms - 300[0m
+[0mGET / [33m404[0m 0.961 ms - 300[0m
+[0mGET /actuator/health [33m404[0m 1.745 ms - 300[0m
+[0mGET / [33m404[0m 0.991 ms - 300[0m
+Response Result Code: 1200
+Response Result Message: 오류 없음
+Response Code: P000
+Result Code: 0000
+Site Code: Q0MwMzI=
+Token Version ID: 2023092213461786-NC2ECC032-GCAD6-FFA731H55F
+Token Value: PDAuSOHiWtEDvEGO7ggJaE5xWZZ64rfZ/4j7ypfqw4Q=
+Period: 3600
+[0mPOST /auth/signup/nice/issue_auth_token [32m200[0m 81.584 ms - 520[0m
+인증 결과 도착
+authtype: M
+nationalinfo: 0
+responseno: MCC03220230922134621Rthv
+resultcode: 0000
+enctime: 20230922134632
+requestno: fhSo9Mj5mLH80LejxDf7Weq4ro4aEY
+mobileno: 01035115847
+sitecode: Q0MwMzI=
+di: MC0GCCqGSIb3DQIJAyEAnwVO+TCmwk8zZ85LpTaJyavxXFAy4ud2sGhCh6HeuXg=
+name: ���ֽ�
+receivedata: null
+birthdate: 20000619
+gender: 1
+utf8_name: %EC%9D%B4%EC%A3%BC%EC%8A%B9
+[0mPOST /auth/signup/nice/get_user_info [32m200[0m 7.683 ms - 155[0m
+[0mGET / [33m404[0m 1.183 ms - 300[0m
+[0mGET / [33m404[0m 0.950 ms - 300[0m
+[0mGET / [33m404[0m 0.932 ms - 300[0m
+[0mGET / [33m404[0m 0.991 ms - 300[0m
+[0mGET / [33m404[0m 1.955 ms - 300[0m
+[0mGET / [33m404[0m 0.971 ms - 300[0m
+[0mGET / [33m404[0m 0.954 ms - 300[0m
+[0mGET /favicon.ico [33m404[0m 1.357 ms - 300[0m
+[0mGET /owa/ [33m404[0m 0.883 ms - 300[0m
+[0mGET /autodiscover/autodiscover.json?a..foo.var/owa/?&Email=autodiscover/autodiscover.json?a..foo.var&Protocol=XYZ&FooProtocol=%50owershell [33m404[0m 0.969 ms - 300[0m
+[0mGET / [33m404[0m 0.902 ms - 300[0m
+[0mGET /robots.txt [33m404[0m 0.980 ms - 300[0m
+[0mGET /sitemap.xml [33m404[0m 1.792 ms - 300[0m
+[0mGET /.well-known/security.txt [33m404[0m 1.017 ms - 300[0m
+[0mGET /favicon.ico [33m404[0m 1.007 ms - 300[0m
+[0mGET / [33m404[0m 1.004 ms - 300[0m
+[0mGET /robots.txt [33m404[0m 0.931 ms - 300[0m
+[0mGET / [33m404[0m 1.027 ms - 300[0m
+[0mGET /favicon.ico [33m404[0m 1.036 ms - 300[0m
+[0mGET / [33m404[0m 0.997 ms - 300[0m
+[0mGET / [33m404[0m 1.177 ms - 300[0m
+[0mGET / [33m404[0m 0.979 ms - 300[0m
+[0mGET /autodiscover/autodiscover.json?@zdi/Powershell [33m404[0m 1.632 ms - 300[0m
+[0mGET / [33m404[0m 1.054 ms - 300[0m
+[0mGET / [33m404[0m 0.987 ms - 300[0m
+[0mGET /owa/ [33m404[0m 1.065 ms - 300[0m
+[0mGET /autodiscover/autodiscover.json?a..foo.var/owa/?&Email=autodiscover/autodiscover.json?a..foo.var&Protocol=XYZ&FooProtocol=%50owershell [33m404[0m 0.963 ms - 300[0m
+[0mGET / [33m404[0m 0.929 ms - 300[0m
+[0mGET / [33m404[0m 0.963 ms - 300[0m
+[0mGET /ecp/Current/exporttool/microsoft.exchange.ediscovery.exporttool.application [33m404[0m 1.075 ms - 300[0m
+[0mGET / [33m404[0m 0.979 ms - 300[0m
+[0mPOST /vpnsvc/connect.cgi [33m404[0m 0.971 ms - 300[0m
+[Sat Sep 23 2023 12:00:00 GMT+0900 (Korean Standard Time)] 7개의 레코드 업데이트 완료
+[0mGET / [33m404[0m 1.101 ms - 300[0m
+[0mGET / [33m404[0m 1.002 ms - 300[0m
+[0mGET /favicon.ico [33m404[0m 0.985 ms - 300[0m
+[0mGET /dns-query?name=dnsscan.shadowserver.org&type=A [33m404[0m 2.446 ms - 300[0m
+[0mGET / [33m404[0m 0.939 ms - 300[0m
+[0mGET /api/v2/static/not.found [33m404[0m 0.937 ms - 300[0m
+[0mGET /remote/logincheck [33m404[0m 2.072 ms - 300[0m
+[0mGET /geoserver/web/ [33m404[0m 0.940 ms - 300[0m
+[0mGET /dns-query?dns=kjABAAABAAAAAAAABmdvb2dsZQNjb20AAAEAAQ [33m404[0m 0.932 ms - 300[0m
+[0mPOST /dns-query [33m404[0m 0.998 ms - 300[0m
+[0mGET / [33m404[0m 0.970 ms - 300[0m
+[0mGET / [33m404[0m 1.202 ms - 300[0m
+[0mGET /login [33m404[0m 1.646 ms - 300[0m
+[0mGET / [33m404[0m 0.929 ms - 300[0m
+[0mGET / [33m404[0m 0.944 ms - 300[0m
+[0mGET / [33m404[0m 1.116 ms - 300[0m
+[0mGET / [33m404[0m 0.995 ms - 300[0m
+[0mGET / [33m404[0m 1.027 ms - 300[0m
+[0mGET / [33m404[0m 1.012 ms - 300[0m
+[0mPOST /auth/signin [32m200[0m 21.294 ms - 558[0m
+[0mGET /mypage [32m200[0m 39.962 ms - 148[0m
+[0mGET /main/list [32m200[0m 7.716 ms - 2710[0m
+[0mGET /main/markers [32m200[0m 2.478 ms - 985[0m
+[0mGET /mypage [36m304[0m 5.523 ms - -[0m
+[0mGET /mypage [36m304[0m 5.054 ms - -[0m
+[0mGET /main/list [36m304[0m 2.727 ms - -[0m
+[0mGET /main/markers [36m304[0m 1.920 ms - -[0m
+[0mGET / [33m404[0m 1.246 ms - 300[0m
+[0mGET / [33m404[0m 1.037 ms - 300[0m
+[0mGET / [33m404[0m 0.918 ms - 300[0m
+[0mGET /ecp/Current/exporttool/microsoft.exchange.ediscovery.exporttool.application [33m404[0m 0.981 ms - 300[0m
+[0mGET / [33m404[0m 1.140 ms - 300[0m
+[0mGET /favicon.ico [33m404[0m 1.383 ms - 300[0m
+[0mGET / [33m404[0m 1.105 ms - 300[0m
+[0mGET / [33m404[0m 0.928 ms - 300[0m
+[0mGET / [33m404[0m 0.930 ms - 300[0m
+[Sun Sep 24 2023 12:00:00 GMT+0900 (Korean Standard Time)] 7개의 레코드 업데이트 완료
+[0mGET /autodiscover/autodiscover.json?@zdi/Powershell [33m404[0m 1.049 ms - 300[0m
+[0mGET / [33m404[0m 1.234 ms - 300[0m
+[0mGET / [33m404[0m 0.935 ms - 300[0m
+[0mGET /owa/auth/logon.aspx [33m404[0m 1.070 ms - 300[0m
+[0mGET /dns-query?dns=pzcBAAABAAAAAAAABmdvb2dsZQNjb20AAAEAAQ [33m404[0m 1.667 ms - 300[0m
+[0mPOST /dns-query [33m404[0m 0.882 ms - 300[0m
+[0mGET /main/list [32m200[0m 10.364 ms - 2710[0m
+[0mGET /main/markers [32m200[0m 2.721 ms - 985[0m
+[0mGET /main/detail?restaurantId=2 [32m200[0m 7.378 ms - 1088[0m
+[0mGET /main/detail?restaurantId=2 [36m304[0m 4.231 ms - -[0m
+[0mGET /main/detail?restaurantId=1 [32m200[0m 4.381 ms - 1061[0m
+[0mGET /main/detail?restaurantId=1 [36m304[0m 5.037 ms - -[0m
+[0mGET /main/detail?restaurantId=6 [32m200[0m 3.634 ms - 796[0m
+[0mGET /main/detail?restaurantId=3 [32m200[0m 4.113 ms - 778[0m
+[0mGET /main/detail?restaurantId=3 [36m304[0m 3.740 ms - -[0m
+[0mGET /main/detail?restaurantId=7 [32m200[0m 4.129 ms - 832[0m
+[0mGET /main/detail?restaurantId=4 [32m200[0m 4.643 ms - 1521[0m
+[0mGET /main/detail?restaurantId=5 [32m200[0m 4.864 ms - 2012[0m
+[0mGET /mypage [33m403[0m 8.301 ms - 66[0m
+[0mGET /main/markers [32m200[0m 2.027 ms - 985[0m
+[0mGET /main/list [32m200[0m 5.770 ms - 2710[0m
+ReferenceError: userSelectResult is not defined
+    at file:///home/server/routes/auth.js:546:5
+    at Layer.handle [as handle_request] (/home/server/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/server/node_modules/express/lib/router/route.js:144:13)
+    at Route.dispatch (/home/server/node_modules/express/lib/router/route.js:114:3)
+    at Layer.handle [as handle_request] (/home/server/node_modules/express/lib/router/layer.js:95:5)
+    at /home/server/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/server/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/server/node_modules/express/lib/router/index.js:280:10)
+    at Function.handle (/home/server/node_modules/express/lib/router/index.js:175:3)
+    at router (/home/server/node_modules/express/lib/router/index.js:47:12)
+[0mGET /auth/signin/renew-token [31m500[0m 6.744 ms - 96[0m
+[0mGET /main/list [36m304[0m 2.391 ms - -[0m
+[0mGET /main/markers [36m304[0m 2.515 ms - -[0m
+Response Result Code: 1200
+Response Result Message: 오류 없음
+Response Code: P000
+Result Code: 0000
+Site Code: Q0MwMzI=
+Token Version ID: 2023092418013444-NC8CCC032-80507-8B70DBB608
+Token Value: bclLiIuil5prTzGE+NZ82B8WepPw/A8QZfIE5BmRcfM=
+Period: 3600
+[0mPOST /auth/signup/nice/issue_auth_token [32m200[0m 59.966 ms - 520[0m
+인증 결과 도착
+authtype: M
+nationalinfo: 0
+responseno: MCC03220230924180139SbK4
+resultcode: 0000
+enctime: 20230924180152
+requestno: fFCmI8flGcMsTrbyGK0jiIapTXPVU9
+mobileno: 01047459497
+sitecode: Q0MwMzI=
+di: MC0GCCqGSIb3DQIJAyEAA9AsUamUeRfhcJz3csrTiQKv4xX6C2BJL7Es+6AlBTQ=
+name: ������
+receivedata: null
+birthdate: 19971226
+gender: 1
+utf8_name: %EC%A0%95%EC%98%81%EC%9B%85
+[0mPOST /auth/signup/nice/get_user_info [32m200[0m 38.847 ms - 155[0m
+[0mPOST /auth/signup/check-id [32m200[0m 9.513 ms - 62[0m
+[0mPOST /auth/signup/check-nickname [32m200[0m 6.818 ms - 69[0m
+file:///home/server/routes/auth.js:418
+      age -= 1; // 생일이 안 지남
+          ^
+
+TypeError: Assignment to constant variable.
+    at isAdult (file:///home/server/routes/auth.js:418:11)
+    at file:///home/server/routes/auth.js:429:8
+    at Layer.handle [as handle_request] (/home/server/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/server/node_modules/express/lib/router/route.js:144:13)
+    at Route.dispatch (/home/server/node_modules/express/lib/router/route.js:114:3)
+    at Layer.handle [as handle_request] (/home/server/node_modules/express/lib/router/layer.js:95:5)
+    at /home/server/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/server/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/server/node_modules/express/lib/router/index.js:280:10)
+    at Function.handle (/home/server/node_modules/express/lib/router/index.js:175:3)
+
+Node.js v18.17.0
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./bin/www.js start`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./bin/www.js start`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./bin/www.js start`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./bin/www.js start`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./bin/www.js start`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./bin/www.js start`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./bin/www.js start`[39m
+[32m[nodemon] starting `node ./bin/www.js start`[39m
+(node:2345303) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 exit listeners added to [Bus]. Use emitter.setMaxListeners() to increase limit
+(Use `node --trace-warnings ...` to show where the warning was created)
+[32m[nodemon] starting `node ./bin/www.js start`[39m
+[32m[nodemon] starting `node ./bin/www.js start`[39m
+443에서 응답 대기중!
+Port 443 is already in use
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+Port 443 is already in use
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+Port 443 is already in use
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+Port 443 is already in use
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+Port 443 is already in use
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+Port 443 is already in use
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+Port 443 is already in use
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[0mGET /mypage [36m304[0m 48.450 ms - -[0m
+[0mGET /main/list [36m304[0m 10.552 ms - -[0m
+[0mGET /main/markers [36m304[0m 5.867 ms - -[0m
+[0mGET /main/detail?restaurantId=2 [36m304[0m 8.099 ms - -[0m
+[0mGET /main/detail?restaurantId=3 [36m304[0m 8.427 ms - -[0m
+[0mGET /main/detail?restaurantId=4 [36m304[0m 5.700 ms - -[0m
+[0mGET /main/detail?restaurantId=3 [36m304[0m 4.269 ms - -[0m
+[0mGET /main/detail?restaurantId=1 [36m304[0m 4.324 ms - -[0m
+[0mGET /main/detail?restaurantId=2 [36m304[0m 6.989 ms - -[0m
+[0mGET /main/detail?restaurantId=3 [36m304[0m 8.806 ms - -[0m
+[0mGET /main/detail?restaurantId=6 [36m304[0m 4.699 ms - -[0m
+[0mGET /main/detail?restaurantId=5 [36m304[0m 5.145 ms - -[0m
