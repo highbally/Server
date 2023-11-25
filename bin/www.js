@@ -14,9 +14,9 @@ app.set('port', port);
 
 // HTTPS 옵션: 인증서와 개인 키 파일 경로 지정
 const options = {
-  key: fs.readFileSync('/home/server/sslKey/private.key'),         // 개인 키 파일 경로
-  cert: fs.readFileSync('/home/server/sslKey/certificate.crt') ,         // 인증서 파일 경로
-  ca: fs.readFileSync('/home/server/sslKey/ca_bundle.crt')  // 중간 인증서 파일 경로
+  key: fs.readFileSync('/home/ubuntu/server/sslKey/private.key'),         // 개인 키 파일 경로
+  cert: fs.readFileSync('/home/ubuntu/server/sslKey/certificate.crt') ,         // 인증서 파일 경로
+  ca: fs.readFileSync('/home/ubuntu/server/sslKey/ca_bundle.crt')  // 중간 인증서 파일 경로
 };
 
 // HTTPs 서버 생성

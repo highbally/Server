@@ -93,4 +93,96 @@ router.get("/cancel", verifyToken, async (req, res) => {
     }
 });
 
+// 일주일 구독 이벤트
+router.get("/7days-event", verifyToken, async (req, res) => {
+    const user = req.decoded.id;
+
+    try {
+        // Check if the event has already been used
+        const [profileResult] = await conn.execute(
+            "SELECT event_used FROM user_profile WHERE usr_id = ?",
+            [user]
+        );
+
+        if (profileResult.length > 0 && profileResult[0].event_used === 1) {
+            // The event has already been used, return an appropriate error response
+            return res.status(400).json({
+                status: 400,
+                message: "이미 사용하셨습니다.",
+                data: [],
+            });
+        }
+
+        // Update user_profile to mark the event as used
+        await conn.execute(
+            "UPDATE user_profile SET available = true, subscribed = true, expired = DATE_ADD(NOW(), INTERVAL 1 WEEK), event_used = 1 WHERE usr_id = ?",
+            [user]
+        );
+
+        res.status(200).json({
+            status: 200,
+            message: "성공적으로 7일 구독이 되었습니다.",
+            data: [],
+        });
+
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            status: 500,
+            message: "요청을 처리하는 중에 애러가 발생했습니다.",
+            data: [],
+        });
+    }
+});
+/***
+ * 구독 언제 끝나는지랑 구독 여부 보내주기
+ */
+router.get("/remain-period",verifyToken, async(req,res) => {
+    const user = req.decoded.id;
+    try{
+        const [[queryResult]] = await conn.execute(
+            "SELECT subscribed, expired FROM user_profile WHERE usr_id = ?",[user]
+        );
+        res.status(200).json({
+            status:200,
+            message: "구독 여부 및 남은 기간 입니다.",
+            data:[queryResult]
+        })
+    } catch(err) {
+        console.log(err);
+        return res.status(500).json({
+            status: 500,
+            message: "요청을 처리하는 중에 애러가 발생했습니다.",
+            data: [],
+        })
+    }
+});
+router.get("/remain-period-v2", verifyToken, async (req, res) => {
+    const user = req.decoded.id;
+    try {
+        const [[queryResult]] = await conn.execute(
+            "SELECT subscribed, expired FROM user_profile WHERE usr_id = ?",
+            [user]
+        );
+        // 대한민국 기준 표준시 (UTC+9hours)
+        const expiredInStandardTime = new Date(queryResult.expired);
+        expiredInStandardTime.setHours(expiredInStandardTime.getHours() + 9);
+
+        res.status(200).json({
+            status: 200,
+            message: "구독 여부 및 남은 기간 입니다.",
+            data: [{
+                subscribed: queryResult.subscribed,
+                expired: expiredInStandardTime.toLocaleString(),
+            }],
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            status: 500,
+            message: "요청을 처리하는 중에 애러가 발생했습니다.",
+            data: [],
+        });
+    }
+});
 export default router;

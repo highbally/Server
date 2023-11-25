@@ -9,6 +9,8 @@ import bodyParser from "body-parser";
 import nunjucks from "nunjucks";
 import dotenv from "dotenv";
 import fs from "fs";
+import cors from 'cors';
+
 
 dotenv.config();
 
@@ -17,6 +19,9 @@ app.use(express.static('public'));
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+// CORS 설정: 모든 도메인에서의 요청 허용
+app.use(cors());
 
 // html을 뷰 엔진으로 설정 -> 동적인 웹 페이지 생성 가능, 템플릿 엔진 사용 가능
 app.set("view engine", "ejs");

@@ -233,4 +233,7 @@ router.get("/account/withdraw", verifyToken, async (req, res, next) => {
 //   }
 // });
 
+/***
+ * 7일 이용권
+ */
 export default router;
